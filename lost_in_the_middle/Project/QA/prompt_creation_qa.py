@@ -36,7 +36,7 @@ def prompt_qa(PATH,position):
 
 if __name__=="__main__":
 
-    prompt,answers=prompt_qa(r"/home/irlab/sagnik/lost_in_the_middle/Project/QA/nq-open-10_total_documents_gold_at_0.jsonl",1)
+    prompt,answers=prompt_qa(r"/home/irlab/sagnik/lost_in_the_middle/Project/QA/Data/10/nq-open-10_total_documents_gold_at_0.jsonl",3)
 
 
     print(prompt)
