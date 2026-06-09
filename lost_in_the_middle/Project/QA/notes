@@ -1,0 +1,3 @@
+The lop creating batch level prompts has not been made robust. Need to add cases where batch count after raching the end of json might not match the available data
+
+we are doing greedy token generation
