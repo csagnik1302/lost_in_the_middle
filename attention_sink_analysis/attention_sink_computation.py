@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append("/home/irlab/sagnik/lost_in_the_middle/Project/QA")
+sys.path.append("/user1/irlab/sagnik/lost_in_the_middle/Project/QA")
 
 from tqdm import tqdm 
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -8,7 +8,7 @@ from prompt_creation_qa import prompt_qa
 import torch
 
 
-with open(r"/home/irlab/sagnik/API_KEY","r") as f:
+with open(r"/user1/irlab/sagnik/API_KEY","r") as f:
     TOKEN_KEY=f.readlines()
 
 
@@ -39,7 +39,7 @@ def measure_attention_sink(model,prompts,tokenizer,device=torch.device("cuda")):
         output=model.generate(**i,output_attentions=True,return_dict_in_generate=True)     # **i: Unpacks the kv data stored in dictionary i and makes it ready to use as a input, return_dict_in_generate returns the output in dictionary form which is better and much structured way of outputting stuff when we are outputting stuff other than the just output tokens
         outputs.append(output)
 
-    return num_layers
+    return [i.attentions for i in outputs], num_layers, num_heads
 
 model_name="mesolitica/llama2-embedding-1b-8k"
 
@@ -47,7 +47,7 @@ model=AutoModelForCausalLM.from_pretrained(model_name,attn_implementation="eager
 tokenizer=AutoTokenizer.from_pretrained(model_name,token=TOKEN_KEY)
 
 output=measure_attention_sink(model=model,prompts=prompts,tokenizer=tokenizer)
-
-print(output)
+output1=output[0]
+print(output1[0][0][0])
 
 
