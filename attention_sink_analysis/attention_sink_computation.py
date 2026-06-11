@@ -85,7 +85,7 @@ for k in tqdm(range(num_layers)):
 
 across_layer_importance_score=(1/num_layers)*sum_score_layer
 
-torch.save(across_layer_importance_score,"across_layer_importance_score.pt")
+torch.save(across_layer_importance_score,"/user1/irlab/sagnik/attention_sink_analysis/Plot/across_layer_importance_score.pt")
 
 ### Plot
 
