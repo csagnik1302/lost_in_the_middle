@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append("/user1/irlab/sagnik/lost_in_the_middle/Project/QA")
+sys.path.append("/home/irlab/sagnik/lost_in_the_middle/Project/QA")
 
 from tqdm import tqdm 
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -9,14 +9,14 @@ import matplotlib.pyplot as plt
 import torch
 
 
-with open(r"/user1/irlab/sagnik/API_KEY","r") as f:
+with open(r"/home/irlab/sagnik/API_KEY","r") as f:
     TOKEN_KEY=f.read()
 
 
 
-prompt_count=2
-gold_count=9
-doc_count=10
+prompt_count=1
+gold_count=0
+doc_count=20
 
 PATH=f"lost_in_the_middle/Project/QA/Data/{doc_count}/nq-open-{doc_count}_total_documents_gold_at_{gold_count}.jsonl"
 
@@ -99,11 +99,11 @@ for l in tqdm(range(prompt_count)):
 
     sum_score_prompt+=across_layer_importance_score
 
-    torch.save((1/(l+1))*sum_score_prompt,f"/user1/irlab/sagnik/attention_sink_analysis/Plot/across_layer_importance_score_prompt_count_{prompt_count}_doc_count_{doc_count}_gold_{gold_count}.pt")
+    torch.save((1/(l+1))*sum_score_prompt,f"/user1/irlab/sagnik/attention_sink_analysis/Plot/Without_Dropout/{model_name}/across_layer_importance_score_prompt_count_{prompt_count}_doc_count_{doc_count}_gold_{gold_count}.pt")
 
 across_prompt_importance_score=(1/prompt_count)*sum_score_prompt
 
-torch.save(across_prompt_importance_score,f"/user1/irlab/sagnik/attention_sink_analysis/Plot/across_layer_importance_score_prompt_count_{prompt_count}_doc_count_{doc_count}_gold_{gold_count}.pt")
+torch.save(across_prompt_importance_score,f"/user1/irlab/sagnik/attention_sink_analysis/Plot/Without_Dropout/{model_name}/across_layer_importance_score_prompt_count_{prompt_count}_doc_count_{doc_count}_gold_{gold_count}.pt")
 
 ### Plot
 
@@ -127,4 +127,4 @@ plt.title("Attention Score")
 
 plt.grid(True)
 
-plt.savefig(f"/user1/irlab/sagnik/attention_sink_analysis/Plot/attention_score_prompt_count_{prompt_count}_doc_count_{doc_count}_gold_{gold_count}.png", dpi=300, bbox_inches="tight")
+plt.savefig(f"/home/irlab/sagnik/attention_sink_analysis/Plot/Without_Dropout/{model_name}/attention_score_prompt_count_{prompt_count}_doc_count_{doc_count}_gold_{gold_count}.png", dpi=300, bbox_inches="tight")
