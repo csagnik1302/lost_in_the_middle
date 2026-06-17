@@ -1,0 +1,5 @@
+"Given a query and a passage, annotate information nuggets "
+"that contain the key information answering the query. Copy the "
+"text of the passage and put the annotated information nuggets "
+"between <IN> and </IN>. Do NOT modify the content of the passage. "
+"Do NOT add additional symbols, spaces, etc. to the text."
