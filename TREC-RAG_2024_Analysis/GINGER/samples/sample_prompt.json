@@ -1,0 +1,26 @@
+[
+  {
+    "role": "system",
+    "content": "\"Given a query and a passage, annotate information nuggets \"\n\"that contain the key information answering the query. Copy the \"\n\"text of the passage and put the annotated information nuggets \"\n\"between <IN> and </IN>. You must use exactly ONE opening tag (<IN>) and exactly ONE closing tag (</IN>) in the entire output. \" \n\"Do NOT modify the content of the passage. \"\n\"Do NOT add additional symbols, spaces, etc. to the text. \"\n"
+  },
+  {
+    "role": "user",
+    "content": "Query: What causes the aurora borealis?\nPassage: The aurora borealis, or northern lights, occurs when charged particles from the sun collide with gases in Earth's atmosphere. This collision typically happens near the magnetic poles. Earth's magnetic field channels these particles towards the polar regions, creating a spectacular display of light."
+  },
+  {
+    "role": "assistant",
+    "content": "The aurora borealis, or northern lights, occurs when <IN>charged particles from the sun collide with gases in Earth's atmosphere</IN>. This collision typically happens near the magnetic poles. Earth's magnetic field channels these particles towards the polar regions, creating a spectacular display of light."
+  },
+  {
+    "role": "user",
+    "content": "Query: How is Type 1 diabetes managed?\nPassage: Type 1 diabetes is a chronic condition where the pancreas produces little or no insulin. Managing it requires a strict regimen including daily insulin injections or an insulin pump, frequent blood sugar monitoring, and careful carbohydrate counting. Regular exercise also plays a vital role in maintaining stable glucose levels."
+  },
+  {
+    "role": "assistant",
+    "content": "Type 1 diabetes is a chronic condition where the pancreas produces little or no insulin. Managing it requires a strict regimen including <IN>daily insulin injections or an insulin pump, frequent blood sugar monitoring, and careful carbohydrate counting</IN>. Regular exercise also plays a vital role in maintaining stable glucose levels."
+  },
+  {
+    "role": "user",
+    "content": "Query: is pew research trustworthy\nPassage: This organization is fully committed to using the highest quality, evidence-based research methodologies for its surveys and it does not express an opinion concerning the findings that emerge from its data analysis. While the Pew Research Center concedes that response rates to all public opinion surveys have been generally declining over the past several years, it also emphasizes that this decline has not significantly affected the error rate of its surveys. Moreover, the relatively large sample sizes that are routinely used by the Pew Research Center help to promote the trustworthiness of the results that emerge from their research. Kriss Fearon\n, PhD Sociology, MA in social research methods\nAnswered 3 years ago \u00b7 Author has 3K answers and 2.3M answer views\nOriginally Answered: Is the Pew Research Center a reliable source of information? It\u2019s pretty usual for interest groups to fund polls on topics that are of interest to them. You might, for example, find pro-life organisations funding opinion polls on abortion. It\u2019s important for them to be able to point to research that\u2019s conducted by a reputable agency which produces findings that are valid and reliable. If you look at the qualifications of the research staff, they all seem very well qualified to be doing that work. The funding source itself shouldn\u2019t make a difference."
+  }
+]
