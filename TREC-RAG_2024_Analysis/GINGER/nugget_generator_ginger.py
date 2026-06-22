@@ -1,10 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import re
 
 
-def nugget_generator_ginger(message,model_name,hf_token_key,source_passage):
-
-    model=AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path=model_name,token=hf_token_key)
-    tokenizer=AutoTokenizer.from_pretrained(pretrained_model_name_or_path=model_name,token=hf_token_key)
+def passage_generator_ginger(message,model,tokenizer,source_passage):
 
     message_processed=tokenizer.apply_chat_template(message,tokenize=False,add_generation_prompt=True)
 
@@ -20,6 +18,17 @@ def nugget_generator_ginger(message,model_name,hf_token_key,source_passage):
     decoded_output=tokenizer.decode(new_output,skip_special_tokens=True)
 
     return decoded_output
+
+
+
+
+def nugget_extractor_ginger(annotated_output):
+
+    out=re.findall("<IN>(.*?)</IN>",annotated_output)
+
+    return out
+
+
 
 
 if __name__=='__main__':
@@ -55,12 +64,25 @@ if __name__=='__main__':
 
     message=message_creator_ginger(instructions,query,passage)
     #############################################
-
-    model='Qwen/Qwen2.5-14B-Instruct'
-
-    output=nugget_generator_ginger(message,model,hf_token_key,passage)
-
-    print(output)
     
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/GINGER/samples/sample_nugget_tagged_output.txt','w') as f:
-        f.write(output)
+    ############ NEEDS DEBUGGING #################################
+    
+    # model='Qwen/Qwen2.5-14B-Instruct'
+
+    # output=passage_generator_ginger(message,model,hf_token_key,passage)
+
+    # print(output)
+    
+    # with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/GINGER/samples/sample_nugget_tagged_output.txt','w') as f:
+    #     f.write(output)
+
+    # ###############################################
+
+    # with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/GINGER/samples/sample_nugget_tagged_output.txt','r') as f:
+    #     annotated_input=f.read() 
+
+    # nuggets=nugget_extractor_ginger(annotated_output)
+
+    # with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/GINGER/samples/sample_nuggets.txt','w') as f:
+    #     for i in nuggets:
+    #         f.write(i+'\n')

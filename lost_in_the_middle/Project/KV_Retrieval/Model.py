@@ -59,6 +59,20 @@ for gold in positions:
 
       generated_output = out[0]["generated_text"]
 
+      record = {
+         "gold_position": gold,
+         "iteration": i,
+         "gold_value": gold_value,
+         "raw_output": generated_output
+      }
+
+      with open(output_file, "a") as f:
+         f.write(json.dumps(record) + "\n")
+         f.flush()
+         os.fsync(f.fileno())
+
+
+
       match = re.search(
          r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
          generated_output

@@ -29,7 +29,7 @@ if __name__=='__main__':
     import json
 
 #######################################
-    with open('/home/irlab/sagnik/TREC-RAG_2024_Analysis/GINGER/prompt_system_instructions.txt','r') as f:
+    with open('/home/irlab/sagnik/TREC-RAG_2024_Analysis/GINGER/schema_and_related_inputs/prompt_system_instructions.txt','r') as f:
         out=f.readlines()
 
     prompt1=''
