@@ -29,5 +29,5 @@ passage_ground=data[0]['candidates'][1]
 #         json.dump(temp,f)
 #         f.write('\n')
 
-
+print(query)
 print(passage_ground)

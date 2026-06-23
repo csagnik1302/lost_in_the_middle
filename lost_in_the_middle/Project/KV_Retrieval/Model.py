@@ -2,6 +2,7 @@ import json
 import re
 import warnings
 import logging as py_logging
+import os 
 
 from transformers import pipeline
 from transformers import logging as hf_logging
@@ -32,7 +33,8 @@ with open(r"/home/irlab/sagnik/API_KEY",'r') as f:
 ######################################## MODEL IMPLEMENTATION ###################################################
 stop=False
 
-model="meta-llama/Meta-Llama-3.1-8B-Instruct"
+# model="meta-llama/Meta-Llama-3.1-8B-Instruct"
+model="hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4"
 
 
 generator=pipeline("text-generation",model=model,token=TOKEN)
@@ -63,10 +65,10 @@ for gold in positions:
          "gold_position": gold,
          "iteration": i,
          "gold_value": gold_value,
-         "raw_output": generated_output
+         "raw_output": generated_output.split("\n")[0]
       }
 
-      with open(output_file, "a") as f:
+      with open(r"/home/irlab/sagnik/lost_in_the_middle/Project/Plots/generated_output_kv_300.jsonl", "a") as f:
          f.write(json.dumps(record) + "\n")
          f.flush()
          os.fsync(f.fileno())
@@ -94,7 +96,7 @@ for gold in positions:
 
    correct_array.append(correct_count)
 
-   with open("/home/irlab/sagnik/lost_in_the_middle/Project/Plots/generated_output_kv_300.txt", "w") as f:
+   with open(r"/home/irlab/sagnik/lost_in_the_middle/Project/Plots/generated_output_kv_300.txt", "w") as f:
       for value in correct_array:
          f.write(str(value) + "\n")
 
@@ -122,6 +124,6 @@ plt.ylim(0, 100)
 
 plt.grid(True)
 
-plt.savefig("/home/irlab/sagnik/lost_in_the_middle/Project/Plots/kv_retrieval_accuracy_300.png", dpi=300, bbox_inches="tight")
+plt.savefig(r"/home/irlab/sagnik/lost_in_the_middle/Project/Plots/kv_retrieval_accuracy_300.png", dpi=300, bbox_inches="tight")
 
 plt.show()
