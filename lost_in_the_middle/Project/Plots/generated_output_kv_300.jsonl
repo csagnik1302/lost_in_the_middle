@@ -1,5 +1,4 @@
 {"gold_position": 0, "iteration": 0, "gold_value": "a4852ee7-d94f-40ce-8c2f-f14e95377e79", "raw_output": " a4852ee7-d94f-40ce-8c2f-f14e95377e79"}
-{"gold_position": 0, "iteration": 0, "gold_value": "a4852ee7-d94f-40ce-8c2f-f14e95377e79", "raw_output": " a4852ee7-d94f-40ce-8c2f-f14e95377e79"}
 {"gold_position": 0, "iteration": 1, "gold_value": "f1dbc903-ea26-415e-9eec-d87ddf37da53", "raw_output": " f1dbc903-ea26-415e-9eec-d87ddf37da53"}
 {"gold_position": 0, "iteration": 2, "gold_value": "336472a2-ea5c-4406-b6cb-81f78983dc84", "raw_output": "336472a2-ea5c-4406-b6cb-81f78983dc84"}
 {"gold_position": 0, "iteration": 3, "gold_value": "a6afca0d-ac72-4999-99fe-8657bda85dd7", "raw_output": " a6afca0d-ac72-4999-99fe-8657bda85dd7"}
@@ -31,3 +30,81 @@
 {"gold_position": 0, "iteration": 29, "gold_value": "66f2735c-4bd5-4ed9-8f9a-7029e98d69a7", "raw_output": "66f2735c-4bd5-4ed9-8f9a-7029e98d69a7"}
 {"gold_position": 0, "iteration": 30, "gold_value": "c0f4a49d-60b3-472e-9bfa-ef656a7f4267", "raw_output": " c0f4a49d-60b3-472e-9bfa-ef656a7f4267"}
 {"gold_position": 0, "iteration": 31, "gold_value": "3e04f0f8-00ac-4b2b-9af9-9b517013cef0", "raw_output": "3e04f0f8-00ac-4b2b-9af9-9b517013cef0"}
+{"gold_position": 0, "iteration": 32, "gold_value": "647d03cb-aaa7-492b-a5c7-514458c20f8e", "raw_output": "647d03cb-aaa7-492b-a5c7-514458c20f8e"}
+{"gold_position": 0, "iteration": 33, "gold_value": "f94dd2d5-1837-491b-a2a9-943908a1f00c", "raw_output": " f94dd2d5-1837-491b-a2a9-943908a1f00c"}
+{"gold_position": 0, "iteration": 34, "gold_value": "cfab7a5c-e1c0-4f93-844b-8e48d58bafae", "raw_output": "cfab7a5c-e1c0-4f93-844b-8e48d58bafae"}
+{"gold_position": 0, "iteration": 35, "gold_value": "c63665ff-69d1-4dee-892d-e407bc4184ae", "raw_output": " c63665ff-69d1-4dee-892d-e407bc4184ae"}
+{"gold_position": 0, "iteration": 36, "gold_value": "cfc74005-f67c-47ed-826b-839ce3474635", "raw_output": " cfc74005-f67c-47ed-826b-839ce3474635"}
+{"gold_position": 0, "iteration": 37, "gold_value": "89c33fde-9c01-4e09-808e-eaf84561cd20", "raw_output": "89c33fde-9c01-4e09-808e-eaf84561cd20"}
+{"gold_position": 0, "iteration": 38, "gold_value": "5cd2eb67-ede8-44b3-9a3c-9affdba7f8e6", "raw_output": "5cd2eb67-ede8-44b3-9a3c-9affdba7f8e6"}
+{"gold_position": 0, "iteration": 39, "gold_value": "c1ee99b4-6f96-4b79-99f0-fe9ab3661028", "raw_output": " c1ee99b4-6f96-4b79-99f0-fe9ab3661028"}
+{"gold_position": 0, "iteration": 40, "gold_value": "68dd0d44-da5e-4425-a599-a63cb2d052bb", "raw_output": "68dd0d44-da5e-4425-a599-a63cb2d052bb"}
+{"gold_position": 0, "iteration": 41, "gold_value": "cc1a0d46-4628-414c-96ba-73ddccd83862", "raw_output": " cc1a0d46-4628-414c-96ba-73ddccd83862"}
+{"gold_position": 0, "iteration": 42, "gold_value": "62a02352-6145-41bd-8a1f-b394d8c3662b", "raw_output": "62a02352-6145-41bd-8a1f-b394d8c3662b"}
+{"gold_position": 0, "iteration": 43, "gold_value": "5d1f364a-f810-41e7-8d39-105699fa8967", "raw_output": "5d1f364a-f810-41e7-8d39-105699fa8967"}
+{"gold_position": 0, "iteration": 44, "gold_value": "a561e595-3d0b-4fb8-9020-7138b4d4c64d", "raw_output": " a561e595-3d0b-4fb8-9020-7138b4d4c64d"}
+{"gold_position": 0, "iteration": 45, "gold_value": "2e17d45d-c1ee-42b0-ab21-2abf347a1668", "raw_output": "2e17d45d-c1ee-42b0-ab21-2abf347a1668"}
+{"gold_position": 0, "iteration": 46, "gold_value": "b78654df-05f8-46c3-ae89-45ca2dc1f070", "raw_output": " b78654df-05f8-46c3-ae89-45ca2dc1f070"}
+{"gold_position": 0, "iteration": 47, "gold_value": "6b44ac13-27ef-4527-824a-d4a750b33df1", "raw_output": "6b44ac13-27ef-4527-824a-d4a750b33df1"}
+{"gold_position": 0, "iteration": 48, "gold_value": "0122c0da-4de9-4fa8-91a9-8ae58b7fc058", "raw_output": "0122c0da-4de9-4fa8-91a9-8ae58b7fc058"}
+{"gold_position": 0, "iteration": 49, "gold_value": "047b3ee7-4265-4af6-868d-4dc0a2c7e42c", "raw_output": "047b3ee7-4265-4af6-868d-4dc0a2c7e42c"}
+{"gold_position": 0, "iteration": 50, "gold_value": "778f383d-2c85-40aa-a0cd-98ae3a62f6d1", "raw_output": "778f383d-2c85-40aa-a0cd-98ae3a62f6d1"}
+{"gold_position": 0, "iteration": 51, "gold_value": "0ccc983b-12a5-4e97-bdfd-04f3a84f3300", "raw_output": "0ccc983b-12a5-4e97-bdfd-04f3a84f3300"}
+{"gold_position": 0, "iteration": 52, "gold_value": "f8088778-8f46-4b6d-ad29-3473655fbb2c", "raw_output": " f8088778-8f46-4b6d-ad29-3473655fbb2c"}
+{"gold_position": 0, "iteration": 53, "gold_value": "e75b858c-307e-4b0e-8e42-9ed224b40ba3", "raw_output": " e75b858c-307e-4b0e-8e42-9ed224b40ba3"}
+{"gold_position": 0, "iteration": 54, "gold_value": "87996e65-734c-4b3d-9238-c2392a30dc8c", "raw_output": "87996e65-734c-4b3d-9238-c2392a30dc8c"}
+{"gold_position": 0, "iteration": 55, "gold_value": "740867f5-68b2-4465-97d8-83f0b1ca2316", "raw_output": "740867f5-68b2-4465-97d8-83f0b1ca2316"}
+{"gold_position": 0, "iteration": 56, "gold_value": "f0a8f84f-251d-4b83-8348-d72f1f40028b", "raw_output": " f0a8f84f-251d-4b83-8348-d72f1f40028b"}
+{"gold_position": 0, "iteration": 57, "gold_value": "e610d698-106d-4939-9e3a-df060308bdf9", "raw_output": " e610d698-106d-4939-9e3a-df060308bdf9"}
+{"gold_position": 0, "iteration": 58, "gold_value": "b062344c-7732-41f6-a307-23bed41a30fc", "raw_output": " b062344c-7732-41f6-a307-23bed41a30fc"}
+{"gold_position": 0, "iteration": 59, "gold_value": "85f40005-f98c-45b2-9d0f-811dfaa8a511", "raw_output": "85f40005-f98c-45b2-9d0f-811dfaa8a511"}
+{"gold_position": 0, "iteration": 60, "gold_value": "5442d863-cbba-4a3c-9161-2af6c2a5d115", "raw_output": "5442d863-cbba-4a3c-9161-2af6c2a5d115"}
+{"gold_position": 0, "iteration": 61, "gold_value": "0803a900-bfed-4f80-b0da-f0672eef5692", "raw_output": "0803a900-bfed-4f80-b0da-f0672eef5692"}
+{"gold_position": 0, "iteration": 62, "gold_value": "1ec56c6a-6f55-4b33-b00b-35e84b85b46f", "raw_output": "1ec56c6a-6f55-4b33-b00b-35e84b85b46f"}
+{"gold_position": 0, "iteration": 63, "gold_value": "0acd9087-f8f6-4307-a257-50aec42785c1", "raw_output": "0acd9087-f8f6-4307-a257-50aec42785c1"}
+{"gold_position": 0, "iteration": 64, "gold_value": "d5e1d1d3-b4b2-4925-bdab-2a0a848799dd", "raw_output": " d5e1d1d3-b4b2-4925-bdab-2a0a848799dd"}
+{"gold_position": 0, "iteration": 65, "gold_value": "05c6517f-8f4d-4d55-a8a5-00d4f60da962", "raw_output": "05c6517f-8f4d-4d55-a8a5-00d4f60da962"}
+{"gold_position": 0, "iteration": 66, "gold_value": "41b7c1c2-a03f-48b1-ba87-4b865e7287fc", "raw_output": "41b7c1c2-a03f-48b1-ba87-4b865e7287fc"}
+{"gold_position": 0, "iteration": 67, "gold_value": "44ddb1b7-2df8-42cf-ba25-c910a6909b0a", "raw_output": "44ddb1b7-2df8-42cf-ba25-c910a6909b0a"}
+{"gold_position": 0, "iteration": 68, "gold_value": "232f3fbe-3141-4770-bd59-97301bcc1e1f", "raw_output": "232f3fbe-3141-4770-bd59-97301bcc1e1f"}
+{"gold_position": 0, "iteration": 69, "gold_value": "466aaf64-7534-428a-ac6c-4798412f7b6c", "raw_output": "466aaf64-7534-428a-ac6c-4798412f7b6c"}
+{"gold_position": 0, "iteration": 70, "gold_value": "9a40a938-082b-42cc-861f-21bf24540727", "raw_output": "9a40a938-082b-42cc-861f-21bf24540727"}
+{"gold_position": 0, "iteration": 71, "gold_value": "b10773af-f04a-4714-9f6e-3e951e397092", "raw_output": " b10773af-f04a-4714-9f6e-3e951e397092"}
+{"gold_position": 0, "iteration": 72, "gold_value": "542b632e-d83d-4929-b1e5-f002f7015704", "raw_output": "542b632e-d83d-4929-b1e5-f002f7015704"}
+{"gold_position": 0, "iteration": 73, "gold_value": "1dad3f6c-e441-4109-bafe-db643c559b86", "raw_output": "1dad3f6c-e441-4109-bafe-db643c559b86"}
+{"gold_position": 0, "iteration": 74, "gold_value": "a8fc75ee-ca4c-4c9e-a727-6fc31682b15c", "raw_output": " a8fc75ee-ca4c-4c9e-a727-6fc31682b15c"}
+{"gold_position": 0, "iteration": 75, "gold_value": "cdb7d92f-d9ef-486c-b4be-880807a4aeec", "raw_output": " cdb7d92f-d9ef-486c-b4be-880807a4aeec"}
+{"gold_position": 0, "iteration": 76, "gold_value": "629a8ea8-3223-4b40-9dce-6e80113dce60", "raw_output": "629a8ea8-3223-4b40-9dce-6e80113dce60"}
+{"gold_position": 0, "iteration": 77, "gold_value": "a1d455e6-e413-4519-bb22-19861aa1d1ba", "raw_output": " a1d455e6-e413-4519-bb22-19861aa1d1ba"}
+{"gold_position": 0, "iteration": 78, "gold_value": "a7d4d2ac-70b3-49d0-934a-a9396929727a", "raw_output": " a7d4d2ac-70b3-49d0-934a-a9396929727a"}
+{"gold_position": 0, "iteration": 79, "gold_value": "c746683b-e0c3-4392-8d93-0893144aab96", "raw_output": " c746683b-e0c3-4392-8d93-0893144aab96"}
+{"gold_position": 0, "iteration": 80, "gold_value": "09819ba9-de31-4154-9dea-c2ac94a62a0d", "raw_output": "09819ba9-de31-4154-9dea-c2ac94a62a0d"}
+{"gold_position": 0, "iteration": 81, "gold_value": "8b7dd95f-d4ae-4f56-b0d2-7fe1c6d752dd", "raw_output": "8b7dd95f-d4ae-4f56-b0d2-7fe1c6d752dd"}
+{"gold_position": 0, "iteration": 82, "gold_value": "7e683a8c-53da-441e-997a-2bfeed4f70b8", "raw_output": "7e683a8c-53da-441e-997a-2bfeed4f70b8"}
+{"gold_position": 0, "iteration": 83, "gold_value": "ee9b4756-b811-4f1c-b4e3-fd58736e26a0", "raw_output": "ee9b4756-b811-4f1c-b4e3-fd58736e26a0"}
+{"gold_position": 0, "iteration": 84, "gold_value": "086c44ee-f9f8-48dc-a6f2-f07e5074ad95", "raw_output": "086c44ee-f9f8-48dc-a6f2-f07e5074ad95"}
+{"gold_position": 0, "iteration": 85, "gold_value": "a9bce76e-0c7a-4c69-bc09-61fc0b8e23c3", "raw_output": " a9bce76e-0c7a-4c69-bc09-61fc0b8e23c3"}
+{"gold_position": 0, "iteration": 86, "gold_value": "49d827bd-26d9-45a0-a510-66712ece3937", "raw_output": "49d827bd-26d9-45a0-a510-66712ece3937"}
+{"gold_position": 0, "iteration": 87, "gold_value": "b8e9ee8b-ca4a-43fa-9013-a5afea342676", "raw_output": " b8e9ee8b-ca4a-43fa-9013-a5afea342676"}
+{"gold_position": 0, "iteration": 88, "gold_value": "4646c9bf-7694-4bf8-8843-e064029c90f4", "raw_output": "4646c9bf-7694-4bf8-8843-e064029c90f4"}
+{"gold_position": 0, "iteration": 89, "gold_value": "eb3e1c13-6123-40ff-b0eb-e9f1447b78e5", "raw_output": "eb3e1c13-6123-40ff-b0eb-e9f1447b78e5"}
+{"gold_position": 0, "iteration": 90, "gold_value": "c66f3a84-7816-48bd-8dc6-c8a344268502", "raw_output": " c66f3a84-7816-48bd-8dc6-c8a344268502"}
+{"gold_position": 0, "iteration": 91, "gold_value": "485224fa-602e-4780-a6ab-e8119165148d", "raw_output": "485224fa-602e-4780-a6ab-e8119165148d"}
+{"gold_position": 0, "iteration": 92, "gold_value": "7cef748f-001d-4ffa-8b96-0b7a175995df", "raw_output": "7cef748f-001d-4ffa-8b96-0b7a175995df"}
+{"gold_position": 0, "iteration": 93, "gold_value": "eb4956da-2d7a-45ed-b2f9-06d84d5ae261", "raw_output": "eb4956da-2d7a-45ed-b2f9-06d84d5ae261"}
+{"gold_position": 0, "iteration": 94, "gold_value": "77e60a4f-6571-4b9b-8a56-e41dbd388f34", "raw_output": "77e60a4f-6571-4b9b-8a56-e41dbd388f34"}
+{"gold_position": 0, "iteration": 95, "gold_value": "60df857b-3467-4931-af20-99c782c83ab3", "raw_output": "60df857b-3467-4931-af20-99c782c83ab3"}
+{"gold_position": 0, "iteration": 96, "gold_value": "ea87d442-7853-4c28-8fa9-0864f4fc35b8", "raw_output": "ea87d442-7853-4c28-8fa9-0864f4fc35b8"}
+{"gold_position": 0, "iteration": 97, "gold_value": "a5c1ff11-461e-4049-8134-548f669e771e", "raw_output": " a5c1ff11-461e-4049-8134-548f669e771e"}
+{"gold_position": 0, "iteration": 98, "gold_value": "4f792a4b-86fe-4cde-a67a-454493a8323c", "raw_output": "4f792a4b-86fe-4cde-a67a-454493a8323c"}
+{"gold_position": 0, "iteration": 99, "gold_value": "57bb6e94-f773-4710-837f-22ae390e8b06", "raw_output": "57bb6e94-f773-4710-837f-22ae390e8b06"}
+{"gold_position": 0, "iteration": 100, "gold_value": "5729bb9b-f1c5-4cfc-b24b-fd27adb5c076", "raw_output": "5729bb9b-f1c5-4cfc-b24b-fd27adb5c076"}
+{"gold_position": 0, "iteration": 101, "gold_value": "3c990054-8134-4072-b1b8-04af4c3a4abf", "raw_output": "3c990054-8134-4072-b1b8-04af4c3a4abf"}
+{"gold_position": 0, "iteration": 102, "gold_value": "7b81c8d3-e091-4f2a-911f-73f2989d774a", "raw_output": "7b81c8d3-e091-4f2a-911f-73f2989d774a"}
+{"gold_position": 0, "iteration": 103, "gold_value": "94fb3318-08c1-435b-82fb-b49dd296d453", "raw_output": "94fb3318-08c1-435b-82fb-b49dd296d453"}
+{"gold_position": 0, "iteration": 104, "gold_value": "edbe2e14-47bf-457c-9037-0176347245e3", "raw_output": "edbe2e14-47bf-457c-9037-0176347245e3"}
+{"gold_position": 0, "iteration": 105, "gold_value": "6b6e950c-2a5b-4c20-a606-28c966530049", "raw_output": "6b6e950c-2a5b-4c20-a606-28c966530049"}
+{"gold_position": 0, "iteration": 106, "gold_value": "93e0de2a-7da6-48f8-9a2a-bd67d40b3833", "raw_output": "93e0de2a-7da6-48f8-9a2a-bd67d40b3833"}
+{"gold_position": 0, "iteration": 107, "gold_value": "cbaf95db-fde9-4654-b62a-7e1261124e2a", "raw_output": "cbaf95db-fde9-4654-b62a-7e1261124e2a"}
+{"gold_position": 0, "iteration": 108, "gold_value": "479247f7-fd88-459e-a73a-b47575df8527", "raw_output": "479247f7-fd88-459e-a73a-b47575df8527"}
+{"gold_position": 0, "iteration": 109, "gold_value": "3f700d9a-861a-41ff-8aca-68209a90e009", "raw_output": "3f700d9a-861a-41ff-8aca-68209a90e009"}
