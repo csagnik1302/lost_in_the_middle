@@ -1,4 +1,5 @@
-sagnik_venv/
+sagnik_venv
 API_KEY
 TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/msmarco_v2.1_doc_segmented
 TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/indexes
+data_json
