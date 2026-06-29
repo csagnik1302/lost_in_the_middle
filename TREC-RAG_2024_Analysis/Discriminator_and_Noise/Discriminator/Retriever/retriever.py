@@ -13,19 +13,21 @@ with open(query_path,'r') as f:
         query_json=json.loads(i)
         query_json_list.append(query_json)
 
-query=[i["query_id"] for i in query_json_list]
+query=[i["query"] for i in query_json_list]
+query_id=[i["query_id"] for i in query_json_list]
 
 searcher = LuceneSearcher(index_path)
 searcher.set_bm25()    # k1 and v not set (default is running)
 
 for i in range(len(query)):
 	query1=query[i]
+	query_id1=query_id[i]
 
-	hits = searcher.search(query1,k=100)
+	hits = searcher.search(query1,k=500000)
 
 	with open(retrieval_results_path,'a') as f:
 		temp={}
-		temp['query_id']=query1
+		temp['query_id']=query_id1
 		temp['hits']=[]
 		for m in range(len(hits)):
 			temp['hits'].append([hits[m].docid,hits[m].score])
