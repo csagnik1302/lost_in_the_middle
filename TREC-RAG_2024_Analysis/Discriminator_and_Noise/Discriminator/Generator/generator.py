@@ -43,7 +43,7 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Di
 inputs=tokenizer(prompt,return_tensors="pt")
 input_size=inputs['input_ids'].shape[1]
 
-output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, temperature=0.0, min_length=400, min_new_tokens=100)
+output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, temperature=0.0, max_length=input_size+400, min_new_tokens=400)
 output1=output_ids[0][input_size:]
 
 output=tokenizer.decode(output1,skip_special_tokens=True)
