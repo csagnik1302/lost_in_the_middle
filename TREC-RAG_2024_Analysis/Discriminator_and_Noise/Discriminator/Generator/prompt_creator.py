@@ -58,9 +58,10 @@ def prompt_creator(input_data,query_lookup_data):
     # prompt6='INSTRUCTION: Please give a complete answer to the question. Cite each context document that supports your answer within brackets [] using the IEEE format.'
     ### TO BE USED FOR Query-Aware Contextualization
 
-    prompt=prompt1+'\n\n'+prompt2+'\n\n'+prompt3+'\n\n'+prompt4+'\n\n'+prompt5
+    message=[{"role":"system","content":prompt1},
+            {"role":"user","content":prompt2+'\n\n'+prompt3+'\n\n'+prompt4+'\n\n'+prompt5}]
 
-    return prompt
+    return message
 
 
 
@@ -87,8 +88,7 @@ if __name__=='__main__':
 
     prompt=prompt_creator(input_data,query_lookup_data)
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Misc/sample_prompt.txt','w') as f:
-        f.write(prompt)
-    
 
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Misc/sample_prompt.json','w', encoding='utf-8') as f:
+        json.dump(prompt,f,indent=2)
     
