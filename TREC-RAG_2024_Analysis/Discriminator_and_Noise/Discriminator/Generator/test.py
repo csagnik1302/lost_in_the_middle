@@ -1,3 +1,10 @@
+# import json
+
+# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Misc/sample_prompt.json','r') as f:
+#     out=json.load(f)
+
+# print(out)
+
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from gold_injector import gold_injector
 from prompt_creator import prompt_creator
@@ -13,7 +20,7 @@ with open(r'/home/irlab/sagnik/API_KEY','r') as f:
 model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 
 
-model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation="sdpa",device_map="auto")
+model=AutoModelForCausalLM.from_pretrained(model_name,attn_implementation="sdpa",device_map={"": 0})
 tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
 retr_set=[]
@@ -39,16 +46,7 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Di
 
 input_processed=tokenizer.apply_chat_template(prompt,tokenize=False,add_generation_prompt=True)
 inputs=tokenizer(input_processed,return_tensors="pt").to(model.device)
-input_size=inputs['input_ids'].shape[1]
 
-output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, temperature=0.0, max_length=input_size+400, min_new_tokens=400)
-output1=output_ids[0][input_size:]
+token_count = inputs["input_ids"].shape[1]
 
-output=tokenizer.decode(output1,skip_special_tokens=True)
-
-print(output)
-
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Misc/sample_output.txt','w') as f:
-    f.write(output)
-
-
+print(token_count)

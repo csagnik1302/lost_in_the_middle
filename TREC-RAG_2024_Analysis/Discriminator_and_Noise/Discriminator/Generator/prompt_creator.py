@@ -43,7 +43,7 @@ def prompt_creator(input_data,query_lookup_data):
 
 
     prompt1='System: This is a chat between a user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user’s questions based on the context. The assistant should also indicate when the answer cannot be found in the context.'
-    prompt2='INSTRUCTION: Please give a complete answer to the question. Cite each context document that supports your answer within brackets [] using the IEEE format.'
+    prompt2='INSTRUCTION: Please give a complete answer to the question. Cite each sentence in the question with the context document that supports your answer within brackets [] using the IEEE format. Mention the citations only at the end of each sentence'
     prompt3=f'QUESTION: {query}'
     prompt4='CONTEXTS:'
     
