@@ -13,7 +13,7 @@ with open(r'/home/irlab/sagnik/API_KEY','r') as f:
 model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 
 
-model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation="sdpa",device_map="auto")
+model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation="sdpa")
 tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
 retr_set=[]
