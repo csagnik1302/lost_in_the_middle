@@ -10,7 +10,7 @@ with open(r'/home/irlab/sagnik/API_KEY','r') as f:
     hf_token=f.read()
 
 
-model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+model_name="unsloth/Mistral-Small-24B-Instruct-2501-unsloth-bnb-4bit"
 
 
 model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token)
