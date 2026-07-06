@@ -42,7 +42,7 @@ def prompt_creator(input_data,query_lookup_data):
                     break
 
 
-    prompt1="You are a helpful, detailed, and polite AI assistant. Answer the user's question only using the provided context documents. No need to mention references or citations at the end of your response. No need to generate any more information that what is needed."
+    prompt1="This is a chat between a user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user’s questions based on the context. The assistant should also indicate when the answer cannot be found in the context.\n\nINSTRUCTION: Please give a complete answer to the question. Cite each context document that supports your answer within brackets [] using the IEEE format."
     prompt3=f'QUESTION: {query}'
     prompt4='CONTEXT DOCUMENTS:'
     
