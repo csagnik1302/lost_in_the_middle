@@ -22,7 +22,7 @@ def prompt_creator(input_data,query_lookup_data):
 
         doc_id_location=i[17:19]
 
-        PATH=f'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/msmarco_v2.1_doc_segmented/msmarco_v2.1_doc_segmented_{doc_id_location}.json.gz'
+        PATH=fr'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/msmarco_v2.1_doc_segmented/msmarco_v2.1_doc_segmented_{doc_id_location}.json.gz'
         with gzip.open(PATH,'r') as f:
             found_in_file=False
             for k in f:
@@ -42,10 +42,9 @@ def prompt_creator(input_data,query_lookup_data):
                     break
 
 
-    prompt1='System: This is a chat between a user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user’s questions based on the context. The assistant should also indicate when the answer cannot be found in the context.'
-    prompt2='INSTRUCTION: Please give a complete answer to the question. Cite each sentence in the question with the context document that supports your answer within brackets [] using the IEEE format. Mention the citations only at the end of each sentence'
+    prompt1="You are a helpful, detailed, and polite AI assistant. Answer the user's question only using the provided context documents. No need to mention references or citations at the end of your response. No need to generate any more information that what is needed."
     prompt3=f'QUESTION: {query}'
-    prompt4='CONTEXTS:'
+    prompt4='CONTEXT DOCUMENTS:'
     
     prompt5=''
     for i in range(len(doc_title_segment_list)):
@@ -55,11 +54,11 @@ def prompt_creator(input_data,query_lookup_data):
         else:
             prompt5+=prompt_temp+'\n'
     
-    # prompt6='INSTRUCTION: Please give a complete answer to the question. Cite each context document that supports your answer within brackets [] using the IEEE format.'
+    prompt6='INSTRUCTION: Please give a complete answer to the question. Cite each context document that supports your answer within brackets [] using the IEEE format.'
     ### TO BE USED FOR Query-Aware Contextualization
 
     message=[{"role":"system","content":prompt1},
-            {"role":"user","content":prompt2+'\n\n'+prompt3+'\n\n'+prompt4+'\n\n'+prompt5}]
+            {"role":"user","content":prompt3+'\n\n'+prompt4+'\n\n'+prompt5+'\n\n'+prompt6+'\n\n'+'Output:'}]
 
     return message
 
@@ -77,7 +76,7 @@ if __name__=='__main__':
             temp=json.loads(i)
             retr_set.append(temp)    
 
-    input_data=gold_injector(retr_set,1)[0]
+    input_data=gold_injector(retr_set,0)[3]
 
     query_lookup_data=[]
 
@@ -92,3 +91,4 @@ if __name__=='__main__':
     with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Misc/sample_prompt.json','w', encoding='utf-8') as f:
         json.dump(prompt,f,indent=2)
     
+

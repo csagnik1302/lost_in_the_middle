@@ -1,3 +1,5 @@
+
+
 def gold_injector(corpus,position_first):
 
     output=[]
