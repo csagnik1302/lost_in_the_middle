@@ -73,16 +73,16 @@ for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace te
 
         ######## Eval
 
-        all_score=all_score(assigner_list)
-        all_strict_score=all_strict_score(assigner_list)
+        all_score_out=all_score(assigner_list)
+        all_strict_score_out=all_strict_score(assigner_list)
 
-        vital_score=vital_score(assigner_list,score_list)
-        vital_strict_score=vital_strict_score(assigner_list,score_list)
+        vital_score_out=vital_score(assigner_list,score_list)
+        vital_strict_score_out=vital_strict_score(assigner_list,score_list)
 
-        weighted_score=weighted_score(assigner_list,score_list)
-        weighted_strict_score=weighted_strict_score(assigner_list,score_list)
+        weighted_score_out=weighted_score(assigner_list,score_list)
+        weighted_strict_score_out=weighted_strict_score(assigner_list,score_list)
 
-        output5={'all_score':all_score,'all_strict_score':all_strict_score,'vital_score':vital_score,'vital_strict_score':vital_strict_score,'weighted_score':weighted_score,'weighted_strict_score':weighted_strict_score}
+        output5={'all_score':all_score_out,'all_strict_score':all_strict_score_out,'vital_score':vital_score_out,'vital_strict_score':vital_strict_score_out,'weighted_score':weighted_score_out,'weighted_strict_score':weighted_strict_score_out}
 
         final_output={'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
 
