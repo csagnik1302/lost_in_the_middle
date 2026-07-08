@@ -30,20 +30,12 @@ if __name__=='__main__':
         nugget_dict=json.load(f)
 
     with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_generator.json','r') as f:
-        out=json.load()
+        out=json.load(f)
     
     passage=out['generator_llm_output']
 
 
-    nugget_list_temp=nugget_dict['NuggetizeLLM_output']
-
-    for i in range(len(nugget_list_temp)):
-        if nugget_list_temp[i]=='[':
-            starting_ind=i
-        if nugget_list_temp[i]==']':
-            ending_ind=i
-
-    nugget_list=ast.literal_eval(nugget_list_temp[starting_ind:ending_ind+1])
+    nugget_list=nugget_dict['NuggetizeLLM_output']
 
     prompt_list=[]
 

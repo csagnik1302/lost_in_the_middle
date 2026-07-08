@@ -29,15 +29,7 @@ if __name__=='__main__':
         nugget_dict=json.load(f)
 
 
-    nugget_list_temp=nugget_dict['NuggetizeLLM_output']
-
-    for i in range(len(nugget_list_temp)):
-        if nugget_list_temp[i]=='[':
-            starting_ind=i
-        if nugget_list_temp[i]==']':
-            ending_ind=i
-
-    nugget_list=ast.literal_eval(nugget_list_temp[starting_ind:ending_ind+1])
+    nugget_list=nugget_dict['NuggetizeLLM_output']
 
     prompt_list=[]
 

@@ -28,18 +28,19 @@ def NuggetizeScoreLLM(model, tokenizer, nugget_dict):
         inputs=tokenizer(input_processed,return_tensors="pt").to(model.device)
         input_size=inputs['input_ids'].shape[1]
 
-        output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+10, min_new_tokens=10)
+        output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+10, min_new_tokens=10, cache_implementation="offloaded")
         output1=output_ids[0][input_size:]
 
         output=tokenizer.decode(output1,skip_special_tokens=True)
 
+    
         for i in output.split():
             j=i.lower()
-            if j=='vital':
+            if 'vital' in j:
                 temp='vital'
                 final_output_list.append(temp)
                 break
-            if j=='okay':
+            if 'okay' in j:
                 temp='okay'
                 final_output_list.append(temp)
                 break
@@ -53,7 +54,7 @@ def NuggetizeScoreLLM(model, tokenizer, nugget_dict):
 
 if __name__=='__main__':
 
-    with open(r'C:\lost-in-the-middle\API_KEY','r') as f:
+    with open(r'/home/irlab/sagnik/API_KEY','r') as f:
         hf_token=f.read()
 
 
@@ -64,7 +65,7 @@ if __name__=='__main__':
     tokenizer=AutoTokenizer.from_pretrained(model_name, fix_mistral_regex=True, token=hf_token)
 
 
-    with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Correctness_Analysis\misc\sample_output_nuggetizellm.json','r') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizellm.json','r') as f:
         nugget_dict=json.load(f)
     
 
@@ -72,7 +73,7 @@ if __name__=='__main__':
     
     export_output={'query':query,'nugget_list':nugget_list,'NuggetizeLLM_output':score_output_list}
 
-    with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Correctness_Analysis\misc\sample_output_nuggetizescorellm.json','w') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizescorellm.json','w') as f:
         json.dump(export_output,f,indent=2)
 
     print(score_output_list)

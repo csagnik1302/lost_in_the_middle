@@ -30,7 +30,7 @@ def llm_output_generator(first_gold_position,corpus_lookup_index,model,tokenizer
     input_size=inputs['input_ids'].shape[1]
 
 
-    output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+200, min_new_tokens=200)
+    output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+200, min_new_tokens=200, cache_implementation="offloaded")
     output1=output_ids[0][input_size:]
 
     output=tokenizer.decode(output1,skip_special_tokens=True)
