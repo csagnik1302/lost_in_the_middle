@@ -1,5 +1,3 @@
-nuggetizescorellm_prompt_creator.py
-
 import gzip
 import json
 import ast

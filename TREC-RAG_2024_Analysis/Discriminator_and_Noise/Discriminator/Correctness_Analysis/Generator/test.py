@@ -10,7 +10,7 @@
 #     hf_token=f.read()
 
 
-# model_name="TheBloke/Llama-2-7B-32K-Instruct-GPTQ"
+# model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 
 
 # model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation="flash_attention_2")
@@ -43,52 +43,58 @@
 
 # print(input_size)
 
-# # from pathlib import Path
-# # import gzip
-# # import shutil
+# # # from pathlib import Path
+# # # import gzip
+# # # import shutil
 
-# # # Folder containing the JSON files
-# # folder = Path(r"C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Data\msmarco_v2.1_doc_segmented")
+# # # # Folder containing the JSON files
+# # # folder = Path(r"C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Data\msmarco_v2.1_doc_segmented")
 
-# # for json_file in folder.glob("*.json"):
-# #     gzip_file = json_file.with_suffix(json_file.suffix + ".gz")
+# # # for json_file in folder.glob("*.json"):
+# # #     gzip_file = json_file.with_suffix(json_file.suffix + ".gz")
 
-# #     with open(json_file, "rb") as f_in:
-# #         with gzip.open(gzip_file, "wb") as f_out:
-# #             shutil.copyfileobj(f_in, f_out)
+# # #     with open(json_file, "rb") as f_in:
+# # #         with gzip.open(gzip_file, "wb") as f_out:
+# # #             shutil.copyfileobj(f_in, f_out)
 
-# #     print(f"Compressed: {json_file.name} -> {gzip_file.name}")
+# # #     print(f"Compressed: {json_file.name} -> {gzip_file.name}")
 
-# #     json_file.unlink()
+# # #     json_file.unlink()
 
-import re
+# # import re
 
-headings = [
-    "references",
-    "reference",
-    "sources",
-    "source",
-    "citations",
-    "citation",
-    "bibliography",
-    "works cited",
-]
+# # headings = [
+# #     "references",
+# #     "reference",
+# #     "sources",
+# #     "source",
+# #     "citations",
+# #     "citation",
+# #     "bibliography",
+# #     "works cited",
+# # ]
 
-with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Misc\sample_output.txt','r') as f:
-    out=f.readlines()
+# # with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Misc\sample_output.txt','r') as f:
+# #     out=f.readlines()
 
-text=''
+# # text=''
 
-for i in out:
-    text+=i
+# # for i in out:
+# #     text+=i
 
 
-pattern = (
-    r"(?is)"
-    r"\n+\s*(?:" + "|".join(re.escape(h) for h in headings) + r")\s*:?.*$"
-)
+# # pattern = (
+# #     r"(?is)"
+# #     r"\n+\s*(?:" + "|".join(re.escape(h) for h in headings) + r")\s*:?.*$"
+# # )
 
-text = re.sub(pattern, "", text).rstrip()
-text = text.replace("\n", " ")
-print(text)
+# # text = re.sub(pattern, "", text).rstrip()
+# # text = text.replace("\n", " ")
+# # print(text)
+
+import sys
+
+sys.path.insert(0,r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Correctness_Analysis\Evaluation')
+
+from evaluator import all_score
 

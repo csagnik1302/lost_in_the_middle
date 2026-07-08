@@ -102,7 +102,7 @@ def weighted_score(judgement_list,relevance_list):
 ###########
 
 
-def weighted_score_strict(judgement_list,relevance_list):
+def weighted_strict_score(judgement_list,relevance_list):
 
     total_1=0
     length_vital_1=0
@@ -127,3 +127,4 @@ def weighted_score_strict(judgement_list,relevance_list):
     score=(total_1+0.5+total_2)/(length_vital_1+0.5+length_vital_2)
 
     return score
+

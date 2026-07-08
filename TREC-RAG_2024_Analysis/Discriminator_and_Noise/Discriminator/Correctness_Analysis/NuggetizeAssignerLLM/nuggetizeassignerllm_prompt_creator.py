@@ -1,5 +1,3 @@
-nuggetizeassignerllm_prompt_creator.py
-
 import gzip
 import json
 import ast
@@ -31,15 +29,10 @@ if __name__=='__main__':
     with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizellm.json','r') as f:
         nugget_dict=json.load(f)
 
-    with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Misc\sample_output.txt','r') as f:
-        out=f.readlines()
-    passage_temp=''
-    for i in out:
-        passage_temp+=i.strip()
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_generator.json','r') as f:
+        out=json.load()
     
-    for i in range(len(passage_temp.split())):
-        if 'references:' in passage_temp.split()[i].lower()
-        
+    passage=out['generator_llm_output']
 
 
     nugget_list_temp=nugget_dict['NuggetizeLLM_output']
@@ -55,12 +48,12 @@ if __name__=='__main__':
     prompt_list=[]
 
     for i in nugget_list:
-        prompt,q=prompt_creator_nuggetizescorellm(nugget_dict,i)
+        prompt,q=prompt_creator_nuggetizeassignerllm(nugget_dict,passage,i)
 
         prompt_list.append(prompt)
 
-    with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Data\Correctness_Analysis\misc\sample_prompt_nuggetizescorellm.json','a', encoding='utf-8') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_prompt_nuggetizeassignerllm.json','w', encoding='utf-8') as f:
         json.dump(prompt_list,f,indent=2)
 
-    print(nugget_dict)
+    print(prompt)
 

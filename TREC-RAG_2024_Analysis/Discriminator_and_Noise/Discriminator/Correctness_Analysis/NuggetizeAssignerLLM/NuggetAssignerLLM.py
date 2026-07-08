@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from nuggetizescorellm_prompt_creator import prompt_creator_nuggetizescorellm
+from nuggetizeassignerllm_prompt_creator import prompt_creator_nuggetizeassignerllm
 import json
 import gzip
 import torch
@@ -8,15 +8,14 @@ import math
 
 #####################
 
-
-def NuggetizeScoreLLM(model, tokenizer, nugget_dict):
+def NuggetizeAssignerLLM(model,tokenizer,nugget_dict,generator_output_passage):
 
     nugget_list=nugget_dict['NuggetizeLLM_output']
-    
+
     prompt_list=[]
 
     for i in nugget_list:
-        prompt,query=prompt_creator_nuggetizescorellm(nugget_dict,i)
+        prompt,query=prompt_creator_nuggetizeassignerllm(nugget_dict,generator_output_passage,i)
 
         prompt_list.append(prompt)
 
@@ -35,19 +34,21 @@ def NuggetizeScoreLLM(model, tokenizer, nugget_dict):
 
         for i in output.split():
             j=i.lower()
-            if j=='vital':
-                temp='vital'
+            if j=='support':
+                temp='support'
                 final_output_list.append(temp)
                 break
-            if j=='okay':
-                temp='okay'
+            if j=='partial_support':
+                temp='partial_support'
                 final_output_list.append(temp)
                 break
+            if j=='not_support':
+                temp='not_support'
+                final_output_list.append(temp)
+                break
+        
     
-
     return final_output_list, nugget_list, query
-
-    
 
 
 
@@ -63,17 +64,22 @@ if __name__=='__main__':
     model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation="flash_attention_2")
     tokenizer=AutoTokenizer.from_pretrained(model_name, fix_mistral_regex=True, token=hf_token)
 
-
-    with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Correctness_Analysis\misc\sample_output_nuggetizellm.json','r') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizellm.json','r') as f:
         nugget_dict=json.load(f)
+
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_generator.json','r') as f:
+        out=json.load()
+    
+    passage=out['generator_llm_output']
     
 
-    score_output_list, nugget_list, query=NuggetizeScoreLLM(model,tokenizer,nugget_dict)
-    
-    export_output={'query':query,'nugget_list':nugget_list,'NuggetizeLLM_output':score_output_list}
+    final_output_list,nugget_list,query=NuggetizeAssignerLLM(model,tokenizer,nugget_dict,passage)
 
-    with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Discriminator\Correctness_Analysis\misc\sample_output_nuggetizescorellm.json','w') as f:
+
+    export_output={'query':query,'nugget_list':nugget_list,'NuggetizeAssigner_output':final_output_list}
+
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc','w') as f:
         json.dump(export_output,f,indent=2)
 
-    print(score_output_list)
+    print(final_output_list)
 

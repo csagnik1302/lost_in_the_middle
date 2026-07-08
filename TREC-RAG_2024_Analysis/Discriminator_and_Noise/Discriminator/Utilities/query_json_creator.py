@@ -21,3 +21,4 @@ for i in k:
     with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/query_rag24.jsonl','w') as f:
         for i in out:
             f.write(json.dumps(i)+'\n')
+
