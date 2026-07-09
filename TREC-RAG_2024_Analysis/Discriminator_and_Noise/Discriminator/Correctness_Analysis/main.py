@@ -52,7 +52,7 @@ corpus_length=len(length_set)
 
 # ########################
 
-test_indices=[0,14,28,43,57]
+test_indices=[0,6,13,19,25,32,38,44,51,57]
 # test_indices=[0]
 
 for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace test_indices with range(context_length-2) for sliding window across computation
@@ -70,7 +70,7 @@ for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace te
         assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(model,tokenizer,nugget_dict,output_text)
         output4=assigner_list
 
-
+    
         ######## Eval
 
         all_score_out=all_score(assigner_list)
