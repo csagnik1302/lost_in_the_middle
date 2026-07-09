@@ -26,7 +26,7 @@ def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
     inputs=tokenizer(input_processed,return_tensors="pt").to(model.device)
     input_size=inputs['input_ids'].shape[1]
 
-    output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+400, min_new_tokens=400, cache_implementation="offloaded")
+    output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+600, min_new_tokens=600, cache_implementation="offloaded")
     output1=output_ids[0][input_size:]
 
     output=tokenizer.decode(output1,skip_special_tokens=True)
@@ -43,6 +43,7 @@ def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
     
     return nugget_dict
 
+    
 
 if __name__=="__main__":
 
@@ -56,7 +57,7 @@ if __name__=="__main__":
     model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
     tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
-    nugget_dict=NuggetizeLLM(0,model,tokenizer,retr_set_path)
+    nugget_dict=NuggetizeLLM(6,model,tokenizer,retr_set_path)
 
     print(nugget_dict)
 

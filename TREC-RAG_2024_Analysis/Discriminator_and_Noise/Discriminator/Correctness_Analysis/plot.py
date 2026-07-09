@@ -8,6 +8,8 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Di
         temp=json.loads(i)
         output.append(temp)
 
+model_name=output[0]['model_name']
+
 gold_pos=[]
 
 for i in output:
@@ -51,15 +53,15 @@ for i in gold_pos:
 
 
 plots = [
-    ("All Score", all_score),
-    ("All Strict Score", all_strict_score),
-    ("Vital Score", vital_score),
-    ("Vital Strict Score", vital_strict_score),
-    ("Weighted Score", weighted_score),
-    ("Weighted Strict Score", weighted_strict_score),
+    (f"All Score (Model: {model_name})", all_score),
+    (f"All Strict Score (Model: {model_name})", all_strict_score),
+    (f"Vital Score (Model: {model_name})", vital_score),
+    (f"Vital Strict Score (Model: {model_name})", vital_strict_score),
+    (f"Weighted Score (Model: {model_name})", weighted_score),
+    (f"Weighted Strict Score (Model: {model_name})", weighted_strict_score),
 ]
 
-output_dir=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Plots'
+output_dir=rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Plots_{model_name}'
 
 for title, scores in plots:
     plt.figure(figsize=(8, 5))
