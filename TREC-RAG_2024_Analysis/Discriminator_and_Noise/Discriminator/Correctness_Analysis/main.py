@@ -52,11 +52,20 @@ corpus_length=len(length_set)
 
 # ########################
 
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/itr_index.json','r') as f:
+    itr=json.load(f)
+
 test_indices=[0,6,13,19,25,32,38,44,51,57]
 # test_indices=[0]
 
 for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace test_indices with range(context_length-2) for sliding window across computation
     for j in tqdm(range(corpus_length),desc='Corpus Index'):
+
+        if i<itr['i']:
+            continue
+
+        if i==itr['i'] and j<=itr['j']:
+            continue
 
         output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
         output1=output_text
@@ -90,6 +99,20 @@ for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace te
             f.write(json.dumps(final_output) + "\n")
             f.flush()
             os.fsync(f.fileno())
+
+        
+        itr['i']=i
+        itr['j']=j
+
+
+        if j==corpus_length-1 and i==test_indices[-1]:
+
+            itr['i']=-1
+            itr['j']=-1
+
+
+        with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/itr_index.json','w') as f:
+            json.dump(itr,f)
 
 
 
