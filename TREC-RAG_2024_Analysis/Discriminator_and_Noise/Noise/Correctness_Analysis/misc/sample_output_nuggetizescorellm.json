@@ -1,0 +1,35 @@
+{
+  "query": "what is vicarious trauma and how can it be coped with?",
+  "nugget_list": [
+    "Vicarious Trauma: Indirect exposure to a traumatic event",
+    "Symptoms: Anxiety, anger, sadness, PTSD",
+    "Susceptible: Helping professionals, close trauma survivors",
+    "Risk factors: Lack of self-care, inadequate training",
+    "Treatment: Therapy, self-care practices",
+    "Prevention: Training, supervision, self-care",
+    "Impact on Mental Health: Emotional issues, PTSD",
+    "Helping Professionals: Doctors, nurses, counsellors",
+    "Others at risk: Police, soldiers, journalists",
+    "Therapy benefits: Discuss impact, build coping skills",
+    "Self-care practices: Essential for frequent trauma exposure",
+    "Diagnostic criteria: Repeated exposure to aversive details",
+    "Prevent future recurrences: Self-care practices",
+    "Vicarious Trauma: Change in personal beliefs about self and world"
+  ],
+  "NuggetizeLLM_output": [
+    "vital",
+    "vital",
+    "vital",
+    "vital",
+    "vital",
+    "vital",
+    "vital",
+    "okay",
+    "vital",
+    "vital",
+    "vital",
+    "vital",
+    "vital",
+    "vital"
+  ]
+}

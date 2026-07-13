@@ -14,11 +14,11 @@ warnings.filterwarnings(
 )
 
 import sys
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Generator')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeLLM')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeScoreLLM')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeAssignerLLM')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Evaluation')
+sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/Generator')
+sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/NuggetizeLLM')
+sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/NuggetizeScoreLLM')
+sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/NuggetizeAssignerLLM')
+sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/Evaluation')
 
 from generator import llm_output_generator
 from NuggetizeLLM import NuggetizeLLM
@@ -30,7 +30,7 @@ from evaluator import all_score, all_strict_score, vital_score, vital_strict_sco
 with open(r'/home/irlab/sagnik/API_KEY','r') as f:
     hf_token=f.read()
 
-retr_set_path=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data_gold_fixed_3.jsonl'
+retr_set_path=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Data/generator_input_data_gold_fixed_3.jsonl'
 
 model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
@@ -50,7 +50,7 @@ corpus_length=len(length_set)
 
 # ########################
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/itr_index.json','r') as f:
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/itr_index.json','r') as f:
     itr=json.load(f)
 
 test_indices=[0,6,13,19,25,32,38,44,51,57]
@@ -94,7 +94,7 @@ for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace te
         final_output={'model':model_name,'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
 
 
-        with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
+        with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
             f.write(json.dumps(final_output) + "\n")
             f.flush()
             os.fsync(f.fileno())
@@ -111,7 +111,7 @@ for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace te
             itr['j']=-1
 
 
-        with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/itr_index.json','w') as f:
+        with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/itr_index.json','w') as f:
             json.dump(itr,f)
 
 
