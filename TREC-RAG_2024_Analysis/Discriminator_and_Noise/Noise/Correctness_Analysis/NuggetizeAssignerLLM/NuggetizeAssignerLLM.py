@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from nuggetizeassignerllm_prompt_creator import prompt_creator_nuggetizeassignerllm
+from nuggetizeassignerllm_prompt_creator import prompt_creator_nuggetizeassignerllm_noise
 import json
 import gzip
 import torch
@@ -15,7 +15,7 @@ def NuggetizeAssignerLLM(model,tokenizer,nugget_dict,generator_output_passage):
     prompt_list=[]
 
     for i in nugget_list:
-        prompt,query=prompt_creator_nuggetizeassignerllm(nugget_dict,generator_output_passage,i)
+        prompt,query=prompt_creator_nuggetizeassignerllm_noise(nugget_dict,generator_output_passage,i)
 
         prompt_list.append(prompt)
 

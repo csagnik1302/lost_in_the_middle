@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from gold_injector import gold_injector
-from prompt_creator import prompt_creator
+from gold_injector import gold_injector_noise
+from prompt_creator import prompt_creator_noise
 import json
 import gzip
 import torch
@@ -17,9 +17,9 @@ def llm_output_generator(first_gold_position,corpus_lookup_index,model,tokenizer
             temp=json.loads(i)
             retr_set.append(temp)    
 
-    input_data=gold_injector(retr_set_path,first_gold_position,corpus_lookup_index)
+    input_data=gold_injector_noise(retr_set_path,first_gold_position,corpus_lookup_index)
 
-    prompt,query=prompt_creator(input_data)
+    prompt,query=prompt_creator_noise(input_data)
 
     query=query.replace('\n','')
     query=query.strip()

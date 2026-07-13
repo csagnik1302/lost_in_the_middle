@@ -1,6 +1,6 @@
 import json
 
-def prompt_creator(input_data):
+def prompt_creator_noise(input_data):
 
     query=input_data['query']
     doc_list=input_data['doc']
@@ -30,15 +30,15 @@ def prompt_creator(input_data):
 
 if __name__=='__main__':
 
-    from gold_injector import gold_injector
+    from gold_injector import gold_injector_noise
 
     retr_set=[]
 
     PATH=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data_gold_fixed_3.jsonl'
 
-    input_data=gold_injector(PATH,1,0)
+    input_data=gold_injector_noise(PATH,1,0)
 
-    prompt,query=prompt_creator(input_data)
+    prompt,query=prompt_creator_noise(input_data)
 
 
     with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_prompt.json','w', encoding='utf-8') as f:

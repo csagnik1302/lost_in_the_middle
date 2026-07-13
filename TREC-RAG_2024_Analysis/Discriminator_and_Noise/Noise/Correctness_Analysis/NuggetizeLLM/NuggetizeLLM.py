@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from nuggetizellm_prompt_creator import prompt_creator_nuggetizellm
+from nuggetizellm_prompt_creator import prompt_creator_nuggetizellm_noise
 import json
 import gzip
 import torch
@@ -18,7 +18,7 @@ def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
 
     input_data=retr_set[corpus_lookup_index]
 
-    prompt,query=prompt_creator_nuggetizellm(input_data)
+    prompt,query=prompt_creator_nuggetizellm_noise(input_data)
 
     query=query.replace('\n','')
 

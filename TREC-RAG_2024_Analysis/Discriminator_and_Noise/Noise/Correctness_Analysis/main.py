@@ -64,55 +64,65 @@ for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace te
 
         if i==itr['i'] and j<=itr['j']:
             continue
+        try:
+            output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
+            output1=output_text
 
-        output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
-        output1=output_text
+            nugget_dict=NuggetizeLLM(j,model,tokenizer,retr_set_path)
+            output2=nugget_dict['NuggetizeLLM_output']
 
-        nugget_dict=NuggetizeLLM(j,model,tokenizer,retr_set_path)
-        output2=nugget_dict['NuggetizeLLM_output']
+            score_list, nugget_list, query1=NuggetizeScoreLLM(model,tokenizer,nugget_dict)
+            output3=score_list
 
-        score_list, nugget_list, query1=NuggetizeScoreLLM(model,tokenizer,nugget_dict)
-        output3=score_list
-
-        assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(model,tokenizer,nugget_dict,output_text)
-        output4=assigner_list
-
-    
-        ######## Eval
-
-        all_score_out=all_score(assigner_list)
-        all_strict_score_out=all_strict_score(assigner_list)
-
-        vital_score_out=vital_score(assigner_list,score_list)
-        vital_strict_score_out=vital_strict_score(assigner_list,score_list)
-
-        weighted_score_out=weighted_score(assigner_list,score_list)
-        weighted_strict_score_out=weighted_strict_score(assigner_list,score_list)
-
-        output5={'all_score':all_score_out,'all_strict_score':all_strict_score_out,'vital_score':vital_score_out,'vital_strict_score':vital_strict_score_out,'weighted_score':weighted_score_out,'weighted_strict_score':weighted_strict_score_out}
-
-        final_output={'model':model_name,'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
-
-
-        with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
-            f.write(json.dumps(final_output) + "\n")
-            f.flush()
-            os.fsync(f.fileno())
-
+            assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(model,tokenizer,nugget_dict,output_text)
+            output4=assigner_list
 
         
-        itr['i']=i
-        itr['j']=j
+            ######## Eval
+
+            all_score_out=all_score(assigner_list)
+            all_strict_score_out=all_strict_score(assigner_list)
+
+            vital_score_out=vital_score(assigner_list,score_list)
+            vital_strict_score_out=vital_strict_score(assigner_list,score_list)
+
+            weighted_score_out=weighted_score(assigner_list,score_list)
+            weighted_strict_score_out=weighted_strict_score(assigner_list,score_list)
+
+            output5={'all_score':all_score_out,'all_strict_score':all_strict_score_out,'vital_score':vital_score_out,'vital_strict_score':vital_strict_score_out,'weighted_score':weighted_score_out,'weighted_strict_score':weighted_strict_score_out}
+
+            final_output={'model':model_name,'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
 
 
-        if j==corpus_length-1 and i==test_indices[-1]:
+            with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
+                f.write(json.dumps(final_output) + "\n")
+                f.flush()
+                os.fsync(f.fileno())
 
-            itr['i']=-1
-            itr['j']=-1
+            
+        except Exception as e:
+
+            error_data={'first_gold_doc_pos':i,'corpus_position':j,'error':str(e)}
+
+            with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_error_log_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
+                f.write(json.dumps(error_data) + "\n")
+                f.flush()
+                os.fsync(f.fileno())
+
+        finally:
+            
+            itr['i']=i
+            itr['j']=j
 
 
-        with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/itr_index.json','w') as f:
-            json.dump(itr,f)
+            if j==corpus_length-1 and i==test_indices[-1]:
+
+                itr['i']=-1
+                itr['j']=-1
+
+
+            with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/itr_index.json','w') as f:
+                json.dump(itr,f)
 
 
 

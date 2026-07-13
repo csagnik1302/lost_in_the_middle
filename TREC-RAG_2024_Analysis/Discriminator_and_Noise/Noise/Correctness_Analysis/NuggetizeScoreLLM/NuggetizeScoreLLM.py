@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from nuggetizescorellm_prompt_creator import prompt_creator_nuggetizescorellm
+from nuggetizescorellm_prompt_creator import prompt_creator_nuggetizescorellm_noise
 import json
 import gzip
 import torch
@@ -16,7 +16,7 @@ def NuggetizeScoreLLM(model, tokenizer, nugget_dict):
     prompt_list=[]
 
     for i in nugget_list:
-        prompt,query=prompt_creator_nuggetizescorellm(nugget_dict,i)
+        prompt,query=prompt_creator_nuggetizescorellm_noise(nugget_dict,i)
 
         prompt_list.append(prompt)
 

@@ -2,7 +2,7 @@ import gzip
 import json
 import ast
 
-def prompt_creator_nuggetizescorellm(nugget_dict,nugget):
+def prompt_creator_nuggetizescorellm_noise(nugget_dict,nugget):
 
     query=nugget_dict['query']
 
@@ -34,7 +34,7 @@ if __name__=='__main__':
     prompt_list=[]
 
     for i in nugget_list:
-        prompt,q=prompt_creator_nuggetizescorellm(nugget_dict,i)
+        prompt,q=prompt_creator_nuggetizescorellm_noise(nugget_dict,i)
 
         prompt_list.append(prompt)
 

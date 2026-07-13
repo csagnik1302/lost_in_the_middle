@@ -1,6 +1,6 @@
 import json
 
-def gold_injector(input_path,position_first_gold_index,corpus_index):
+def gold_injector_noise(input_path,position_first_gold_index,corpus_index):
 
     corpus=[]
 

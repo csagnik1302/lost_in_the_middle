@@ -1,7 +1,7 @@
 import gzip
 import json
 
-def prompt_creator_nuggetizellm(input_data):
+def prompt_creator_nuggetizellm_noise(input_data):
 
     query=input_data['query']
     doc=input_data['doc_gold']
@@ -46,7 +46,7 @@ if __name__=='__main__':
     input_data=retr_set[0]
 
 
-    prompt,query=prompt_creator_nuggetizellm(input_data)
+    prompt,query=prompt_creator_nuggetizellm_noise(input_data)
 
 
     with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_prompt_nuggetizellm.json','w', encoding='utf-8') as f:
