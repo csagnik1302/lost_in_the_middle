@@ -38,12 +38,12 @@ if __name__=='__main__':
 
     retr_set=[]
 
-    PATH=r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Noise\Data\generator_input_data_gold_fixed_3.jsonl' 
+    PATH=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Data/generator_input_data_gold_fixed_3.jsonl' 
 
     out=gold_injector(PATH,1,3)
 
     print(out)
 
-    with open(r'C:\lost-in-the-middle\TREC-RAG_2024_Analysis\Discriminator_and_Noise\Noise\Correctness_Analysis\misc\gold_injector_output.json','w', encoding='utf-8') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/gold_injector_output.json','w', encoding='utf-8') as f:
         json.dump(out,f,indent=2)
 

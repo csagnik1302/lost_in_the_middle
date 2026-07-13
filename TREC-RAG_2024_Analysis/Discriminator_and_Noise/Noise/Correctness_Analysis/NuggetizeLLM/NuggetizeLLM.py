@@ -26,7 +26,7 @@ def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
     inputs=tokenizer(input_processed,return_tensors="pt").to(model.device)
     input_size=inputs['input_ids'].shape[1]
 
-    output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+600, min_new_tokens=600, cache_implementation="offloaded")
+    output_ids=model.generate(inputs['input_ids'],tokenizer=tokenizer, do_sample=False, max_length=input_size+1100, min_new_tokens=1100, cache_implementation="offloaded")
     output1=output_ids[0][input_size:]
 
     output=tokenizer.decode(output1,skip_special_tokens=True)
@@ -45,7 +45,26 @@ def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
         if starting_Flag==True and ending_Flag==True:
             break
 
-    nugget_list=ast.literal_eval(output[starting_ind:ending_ind+1])
+    raw_list=output[starting_ind:ending_ind+1].strip().strip('[]').strip()
+
+    nugget_list=[]
+
+    for i in raw_list.splitlines():
+        j=i.strip()
+
+        if not j:
+            continue
+
+        if j.endswith(","):
+            j=j[:-1].strip()
+
+        if not j:
+            continue        
+        
+        if j.startswith('"') and j.endswith('"'):
+            j=j[1:-1]
+
+        nugget_list.append(j)
 
     nugget_dict={'query':query,'NuggetizeLLM_output':nugget_list}
     
