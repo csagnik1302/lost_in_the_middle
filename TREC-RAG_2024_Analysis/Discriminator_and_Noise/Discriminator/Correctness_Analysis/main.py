@@ -56,7 +56,6 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Di
 test_indices=[0,6,13,19,25,32,38,44,51,57]
 # test_indices=[0]
 
-interrupted=False
 
 for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         # Replace test_indices with range(context_length-2) for sliding window across computation
     for j in tqdm(range(corpus_length),desc='Corpus Index',leave=False):
@@ -66,6 +65,9 @@ for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         #
 
         if i==itr['i'] and j<=itr['j']:
             continue
+
+        interrupted=False
+        
         try:
             output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
             output1=output_text
