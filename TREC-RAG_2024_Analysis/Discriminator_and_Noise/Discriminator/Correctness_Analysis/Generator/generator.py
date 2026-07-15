@@ -71,7 +71,7 @@ if __name__=='__main__':
     model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
     tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
-    output_text, query=llm_output_generator(0,4,model,tokenizer,retr_set_path)
+    output_text, query=llm_output_generator(13,77,model,tokenizer,retr_set_path)
 
     print(output_text)
 

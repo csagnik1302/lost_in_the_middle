@@ -86,7 +86,7 @@ if __name__=="__main__":
     model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
     tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
-    nugget_dict=NuggetizeLLM(17,model,tokenizer,retr_set_path)
+    nugget_dict=NuggetizeLLM(77,model,tokenizer,retr_set_path)
 
     print(nugget_dict)
 
