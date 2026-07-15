@@ -53,7 +53,7 @@ corpus_length=len(length_set)
 with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/itr_index.json','r') as f:
     itr=json.load(f)
 
-test_indices=[0,6,13,19,25,32,38,44,51,57]
+test_indices=[0,6,13,19,25,32,38,44,51,57,59]
 # test_indices=[0]
 
 for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace test_indices with range(context_length-2) for sliding window across computation
