@@ -109,16 +109,19 @@ for i,j in indices_missed:
     #     continue
     output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
     output1=output_text
+    print('DONE')
 
     nugget_dict=NuggetizeLLM(j,model,tokenizer,retr_set_path)
     output2=nugget_dict['NuggetizeLLM_output']
+    print('DONE')
 
     score_list, nugget_list, query1=NuggetizeScoreLLM(model,tokenizer,nugget_dict)
     output3=score_list
+    print('DONE')
 
     assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(model,tokenizer,nugget_dict,output_text)
     output4=assigner_list
-
+    print('DONE')
 
     ######## Eval
 

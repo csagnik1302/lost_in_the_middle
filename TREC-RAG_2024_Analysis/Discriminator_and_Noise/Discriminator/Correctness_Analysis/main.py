@@ -56,8 +56,8 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Di
 test_indices=[0,6,13,19,25,32,38,44,51,57,59]
 # test_indices=[0]
 
-for i in tqdm(test_indices,desc='First Gold Doc Position'):         # Replace test_indices with range(context_length-2) for sliding window across computation
-    for j in tqdm(range(corpus_length),desc='Corpus Index'):
+for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         # Replace test_indices with range(context_length-2) for sliding window across computation
+    for j in tqdm(range(corpus_length),desc='Corpus Index',leave=False):
 
         if i<itr['i']:
             continue
