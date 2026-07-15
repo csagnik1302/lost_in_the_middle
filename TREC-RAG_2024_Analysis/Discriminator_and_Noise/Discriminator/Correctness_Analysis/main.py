@@ -53,8 +53,10 @@ corpus_length=len(length_set)
 with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/itr_index.json','r') as f:
     itr=json.load(f)
 
-test_indices=[0,6,13,19,25,32,38,44,51,57,59]
+test_indices=[0,6,13,19,25,32,38,44,51,57]
 # test_indices=[0]
+
+interrupted=False
 
 for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         # Replace test_indices with range(context_length-2) for sliding window across computation
     for j in tqdm(range(corpus_length),desc='Corpus Index',leave=False):
@@ -99,6 +101,10 @@ for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         #
                 f.flush()
                 os.fsync(f.fileno())
 
+        except KeyboardInterrupt:
+            
+            interrupted=True
+            raise
             
         except Exception as e:
 
@@ -110,19 +116,21 @@ for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         #
                 os.fsync(f.fileno())
 
         finally:
-            
-            itr['i']=i
-            itr['j']=j
+
+            if interrupted==False:
+                
+                itr['i']=i
+                itr['j']=j
 
 
-            if j==corpus_length-1 and i==test_indices[-1]:
+                if j==corpus_length-1 and i==test_indices[-1]:
 
-                itr['i']=-1
-                itr['j']=-1
+                    itr['i']=-1
+                    itr['j']=-1
 
 
-            with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/itr_index.json','w') as f:
-                json.dump(itr,f)
+                with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/itr_index.json','w') as f:
+                    json.dump(itr,f)
 
 
 
