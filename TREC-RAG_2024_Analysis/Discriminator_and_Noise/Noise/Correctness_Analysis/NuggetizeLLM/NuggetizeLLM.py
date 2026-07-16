@@ -4,8 +4,41 @@ import json
 import gzip
 import torch
 import ast
+import re
 
 #####################
+
+def split_glued_nuggets(raw):
+    """
+    Handles the case where the nugget field is a list containing ONE
+    string with all nuggets joined by '", "'. Splits it back into
+    individual nugget strings.
+    """
+    raw = raw.strip()
+    if raw.startswith('"'):
+        raw = raw[1:]
+    if raw.endswith('"'):
+        raw = raw[:-1]
+
+    parts = re.split(r'"\s*,\s*"', raw)
+    parts = [p.replace('\n', ' ').strip() for p in parts]
+    parts = [p for p in parts if p]
+
+    return parts
+
+
+def get_nugget_list(nugget_list):
+
+    raw_output = nugget_list
+
+    if isinstance(raw_output, list) and len(raw_output) > 1:
+        return raw_output
+
+    if isinstance(raw_output, list) and len(raw_output) == 1:
+        return split_glued_nuggets(raw_output[0])
+
+    if isinstance(raw_output, str):
+        return split_glued_nuggets(raw_output)
 
 def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
 
@@ -45,6 +78,7 @@ def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
         if starting_Flag==True and ending_Flag==True:
             break
 
+
     raw_list=output[starting_ind:ending_ind+1].strip().strip('[]').strip()
 
     nugget_list=[]
@@ -66,9 +100,13 @@ def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
 
         nugget_list.append(j)
 
-    nugget_dict={'query':query,'NuggetizeLLM_output':nugget_list}
+    
+    final_nugget_list=get_nugget_list(nugget_list)
+
+    nugget_dict={'query':query,'NuggetizeLLM_output':final_nugget_list}
     
     return nugget_dict
+
 
     
 
@@ -78,16 +116,16 @@ if __name__=="__main__":
     with open(r'/home/irlab/sagnik/API_KEY','r') as f:
         hf_token=f.read()
 
-    retr_set_path=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data_gold_fixed_3.jsonl'
+    retr_set_path=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Data/generator_input_data_gold_fixed_3.jsonl'
 
     model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
     model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
     tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
-    nugget_dict=NuggetizeLLM(4,model,tokenizer,retr_set_path)
+    nugget_dict=NuggetizeLLM(77,model,tokenizer,retr_set_path)
 
     print(nugget_dict)
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizellm.json','w') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/sample_output_nuggetizellm.json','w') as f:
         json.dump(nugget_dict,f,indent=2)
 

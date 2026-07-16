@@ -64,10 +64,10 @@ if __name__=='__main__':
     model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation="flash_attention_2")
     tokenizer=AutoTokenizer.from_pretrained(model_name, fix_mistral_regex=True, token=hf_token)
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizellm.json','r') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/sample_output_nuggetizellm.json','r') as f:
         nugget_dict=json.load(f)
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_generator.json','r') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/sample_output_generator.json','r') as f:
         out=json.load(f)
     
     passage=out['generator_llm_output']
@@ -78,7 +78,7 @@ if __name__=='__main__':
 
     export_output={'query':query,'nugget_list':nugget_list,'NuggetizeAssigner_output':final_output_list}
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizeassignerllm.json','w') as f:
+    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/sample_output_nuggetizeassignerllm.json','w') as f:
         json.dump(export_output,f,indent=2)
 
     print(final_output_list)

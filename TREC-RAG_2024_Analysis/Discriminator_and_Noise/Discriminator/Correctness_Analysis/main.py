@@ -66,7 +66,7 @@ for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         #
         if i==itr['i'] and j<=itr['j']:
             continue
 
-        interrupted=True
+        interrupted=False
         
         try:
             output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)

@@ -237,11 +237,11 @@ if __name__ == '__main__':
 
         nugget_list, key = get_nugget_list(i)
     
-        if len(nugget_list)!=len(i['nuggetizescorellm_output']):
+        if len(nugget_list)!=len(i['nuggetizescorellm_output']) or len(nugget_list)!=len(i['nuggetizeassignerllm_output']):
             gen={"first_gold_doc_pos": i['first_gold_doc_pos'], "corpus_position": i['corpus_position']}
             
 
-            with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/pipeline_fixing_need_log.jsonl','a') as f:
+            with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/pipeline_fixing_need_log1.jsonl','a') as f:
                 f.write(json.dumps(gen) + "\n")
                 f.flush()
                 os.fsync(f.fileno())

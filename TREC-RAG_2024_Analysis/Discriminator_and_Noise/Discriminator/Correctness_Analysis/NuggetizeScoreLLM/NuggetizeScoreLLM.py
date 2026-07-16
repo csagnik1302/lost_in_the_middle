@@ -10,42 +10,9 @@ import re
 #####################
 
 
-def split_glued_nuggets(raw):
-    """
-    Handles the case where the nugget field is a list containing ONE
-    string with all nuggets joined by '", "'. Splits it back into
-    individual nugget strings.
-    """
-    raw = raw.strip()
-    if raw.startswith('"'):
-        raw = raw[1:]
-    if raw.endswith('"'):
-        raw = raw[:-1]
-
-    parts = re.split(r'"\s*,\s*"', raw)
-    parts = [p.replace('\n', ' ').strip() for p in parts]
-    parts = [p for p in parts if p]
-
-    return parts
-
-
-def get_nugget_list(nugget_dict):
-
-    raw_output = nugget_dict['NuggetizeLLM_output']
-
-    if isinstance(raw_output, list) and len(raw_output) > 1:
-        return raw_output
-
-    if isinstance(raw_output, list) and len(raw_output) == 1:
-        return split_glued_nuggets(raw_output[0])
-
-    if isinstance(raw_output, str):
-        return split_glued_nuggets(raw_output)
-
-
 def NuggetizeScoreLLM(model, tokenizer, nugget_dict):
 
-    nugget_list = get_nugget_list(nugget_dict)
+    nugget_list = nugget_dict['NuggetizeLLM_output']
     prompt_list = []
 
     for i in nugget_list:
