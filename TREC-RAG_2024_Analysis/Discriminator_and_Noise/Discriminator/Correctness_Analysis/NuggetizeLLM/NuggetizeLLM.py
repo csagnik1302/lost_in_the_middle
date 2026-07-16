@@ -27,6 +27,8 @@ def split_glued_nuggets(raw):
     return parts
 
 
+
+
 def get_nugget_list(nugget_list):
 
     raw_output = nugget_list
@@ -39,6 +41,8 @@ def get_nugget_list(nugget_list):
 
     if isinstance(raw_output, str):
         return split_glued_nuggets(raw_output)
+
+
 
 def NuggetizeLLM(corpus_lookup_index,model,tokenizer,retr_set_path):
 

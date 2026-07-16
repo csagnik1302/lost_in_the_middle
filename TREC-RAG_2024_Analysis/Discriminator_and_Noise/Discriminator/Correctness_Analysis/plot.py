@@ -69,7 +69,7 @@ for title, scores in plots:
     plt.plot(gold_pos, scores, marker='o')
     plt.title(title)
     plt.xlabel("First Gold Document Position")
-    plt.ylabel(title)
+    plt.ylabel(title.replace(f'(Model: {model_name})',''))
     plt.xticks(gold_pos)
     plt.grid(True)
     plt.tight_layout()
