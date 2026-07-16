@@ -5,6 +5,9 @@ import torch
 import re
 import os
 from tqdm import tqdm
+from setproctitle import setproctitle
+
+setproctitle("Discriminator-corr")
 
 import warnings
 warnings.filterwarnings(
