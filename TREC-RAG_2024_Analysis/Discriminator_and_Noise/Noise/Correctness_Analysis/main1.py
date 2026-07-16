@@ -54,18 +54,18 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/No
     itr=json.load(f)
 
 unified_itr=[]
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_error_log_mistral-7b-instruct-v0.3-bnb-4bit.jsonl'):
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_error_log_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
     for i in f:
-        unified_itr(json.loads(i))
+        unified_itr.append(json.loads(i))
 
-unified_itr1
+unified_itr1=[]
 for i in unified_itr:
     unified_itr1_temp=[i['first_gold_doc_pos'],i['corpus_position']]
     unified_itr1.append(unified_itr1_temp)
 
 # test_indices=[0]
 
-for i,j in tqdm(unified_itr1)
+for i,j in tqdm(unified_itr1):
 
     try:
         output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
