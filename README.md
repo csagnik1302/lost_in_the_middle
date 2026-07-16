@@ -1,11 +1,5 @@
 # Lost in the Middle: Long-Context Retrieval Analysis
 
-[![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-Used-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Transformers](https://img.shields.io/badge/%F0%9F%A4%97%20Transformers-Used-FFD21E?logo=huggingface&logoColor=black)](https://huggingface.co/docs/transformers/)
-[![CUDA](https://img.shields.io/badge/CUDA-GPU%20experiments-76B900?logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-toolkit)
-[![Status](https://img.shields.io/badge/Status-Analysis%20in%20progress-4C1?logo=github)](#project-progress)
-
 This repository contains experiments that study **where information appears in a long prompt** and how that position affects a language model's ability to retrieve and use it. The work covers controlled key-value (KV) retrieval, open-domain question answering (QA), attention-sink measurements, and TREC RAG evaluation under discriminator and noise settings.
 
 The repository is research code rather than a packaged library. Scripts are intentionally kept close to the experiments and datasets that produced the saved outputs.
