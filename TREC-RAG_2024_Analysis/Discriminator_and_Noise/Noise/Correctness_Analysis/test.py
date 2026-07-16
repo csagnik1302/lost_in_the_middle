@@ -125,6 +125,42 @@
 #         f.flush()
 #         os.fsync(f.fileno())
 
+
+#################################
+################################
+
+# import json
+
+# inp1=[]
+# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+#     for i in f:
+#         inp1.append(json.loads(i))
+
+# inp2=[]
+# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+#     for i in f:
+#         inp2.append(json.loads(i))
+
+# for i in range(len(inp1)):
+#     a1=inp1[i]['first_gold_doc_pos']
+#     a2=inp1[i]['corpus_position']
+#     a3=inp1[i]['generator_output']
+
+#     for j in range(len(inp2)):
+#         b1=inp2[j]['first_gold_doc_pos']
+#         b2=inp2[j]['corpus_position']
+#         b3=inp2[j]['generator_output']
+
+#         if a1==b1 and a2==b2:
+#             if a3==b3:
+#                 print(f'Duplicate Queries: {a1},{a2} | {b1},{b2}')
+#                 break
+
+# print('ALL DONE')
+
+######################################33
+##########################################
+
 import json
 
 inp1=[]
@@ -137,19 +173,17 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/No
     for i in f:
         inp2.append(json.loads(i))
 
-for i in range(len(inp1)):
-    a1=inp1[i]['first_gold_doc_pos']
-    a2=inp1[i]['corpus_position']
-    a3=inp1[i]['generator_output']
 
-    for j in range(len(inp2)):
-        b1=inp2[j]['first_gold_doc_pos']
-        b2=inp2[j]['corpus_position']
-        b3=inp2[j]['generator_output']
+l1=[]
 
-        if a1==b1 and a2==b2:
-            if a3==b3:
-                print(f'Duplicate Queries: {a1},{a2} | {b1},{b2}')
-                break
+for i in inp1:
+    temp1=i['first_gold_doc_pos']
+    temp2=i['corpus_position']
 
-print('ALL DONE')
+    l1.append([temp1,temp2])
+
+l2=[]
+for i in l1:
+    l2.append(l1.count(i))
+
+print(set(l2))
