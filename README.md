@@ -10,17 +10,24 @@ This repository contains experiments that study **where information appears in a
 
 The repository is research code rather than a packaged library. Scripts are intentionally kept close to the experiments and datasets that produced the saved outputs.
 
-## Tools and Libraries
+## Environment
 
-| Component | Current research configuration | Notes |
-| --- | --- | --- |
-| Language | Python 3.10–3.12 | Versions observed in the committed experiment artifacts. |
-| Deep learning | PyTorch | Tensor computation, model loading, and attention analysis. |
-| LLM framework | Hugging Face Transformers | Text generation, tokenization, and causal language-model loading. |
-| Hardware | NVIDIA CUDA GPU | Expected for the supplied Llama, Mistral, and attention runs. |
-| Quantization | AWQ INT4 and bitsandbytes | Used by selected quantized model configurations. |
-| Analysis | Matplotlib | Accuracy and attention plots. |
-| Progress | tqdm | Iteration progress for long-running experiments. |
+The versions below are pinned from the environment that produced the current committed experiment artifacts. Use them (or record your own) when reporting or comparing a run — see the [Reproducibility Checklist](#reproducibility-checklist).
+
+<p align="left">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.10--3.12-3776AB?logo=python&logoColor=white">
+  <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.12.0-EE4C2C?logo=pytorch&logoColor=white">
+  <img alt="Transformers" src="https://img.shields.io/badge/Transformers-5.12.0-FFD21E?logo=huggingface&logoColor=black">
+  <img alt="Accelerate" src="https://img.shields.io/badge/Accelerate-1.14.0-FFD21E?logo=huggingface&logoColor=black">
+  <img alt="huggingface_hub" src="https://img.shields.io/badge/huggingface__hub-1.19.0-FFD21E?logo=huggingface&logoColor=black">
+  <img alt="bitsandbytes" src="https://img.shields.io/badge/bitsandbytes-0.49.2-4B8BBE">
+  <img alt="Flash Attention" src="https://img.shields.io/badge/flash--attn-2.8.3-76B900?logo=nvidia&logoColor=white">
+  <img alt="CUDA Toolkit" src="https://img.shields.io/badge/CUDA%20Toolkit-13.0.2-76B900?logo=nvidia&logoColor=white">
+  <img alt="Matplotlib" src="https://img.shields.io/badge/Matplotlib-3.11.0-11557C?logo=plotly&logoColor=white">
+  <img alt="tqdm" src="https://img.shields.io/badge/tqdm-4.68.2-FFC107">
+</p>
+
+> Quantized runs additionally rely on **AWQ INT4** model builds; the `bitsandbytes` version above covers the 4-bit `unsloth` configuration. Flash Attention is only required if you keep `attn_implementation="flash_attention_2"` in the TREC correctness scripts.
 
 ## Project Progress
 
