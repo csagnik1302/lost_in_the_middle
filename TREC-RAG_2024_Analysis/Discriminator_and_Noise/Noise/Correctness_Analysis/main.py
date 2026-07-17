@@ -105,7 +105,7 @@ for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         #
             final_output={'model':model_name,'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
 
 
-            with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{model}/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
+            with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
                 f.write(json.dumps(final_output) + "\n")
                 f.flush()
                 os.fsync(f.fileno())
