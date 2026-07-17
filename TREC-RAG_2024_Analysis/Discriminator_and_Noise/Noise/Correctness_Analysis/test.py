@@ -176,7 +176,7 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/No
 
 l1=[]
 
-for i in inp1:
+for i in inp2:
     temp1=i['first_gold_doc_pos']
     temp2=i['corpus_position']
 
@@ -187,3 +187,83 @@ for i in l1:
     l2.append(l1.count(i))
 
 print(set(l2))
+
+################################################
+##################################################
+
+
+# import json
+
+# inp1=[]
+# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+#     for i in f:
+#         inp1.append(json.loads(i))
+
+# inp2=[]
+# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+#     for i in f:
+#         inp2.append(json.loads(i))
+
+
+# k=[]
+
+# itr=inp1
+
+# for i in itr:
+#     temp1=i['first_gold_doc_pos']
+#     if temp1 not in k:
+#         k.append(temp1)
+
+
+# out=[]
+# for i in k:
+#     count=0
+#     for j in itr:
+#         temp2=j['first_gold_doc_pos']
+        
+#         if temp2==i:
+#             count+=1
+    
+#     out.append(count)
+
+
+# print(k,out)
+
+#####################################################
+#####################################################
+
+
+# import json
+
+# inp1=[]
+# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+#     for i in f:
+#         inp1.append(json.loads(i))
+
+# inp2=[]
+# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+#     for i in f:
+#         inp2.append(json.loads(i))
+
+# k=[]
+
+# itr=inp2
+
+# out=[]
+
+# for j in itr:
+#     temp2=j['first_gold_doc_pos']
+#     temp3=j['corpus_position']
+
+#     if temp2==38:
+#         if temp3 not in out:
+#             out.append(temp3)
+
+
+# # ref=list(range(125))
+
+# # for i in out:
+# #     if i not in ref:
+# #         print(i)
+
+# print(sorted(out))
