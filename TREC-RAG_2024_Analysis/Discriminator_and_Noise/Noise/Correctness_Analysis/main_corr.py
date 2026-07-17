@@ -33,9 +33,13 @@ from evaluator import all_score, all_strict_score, vital_score, vital_strict_sco
 with open(r'/home/irlab/sagnik/API_KEY','r') as f:
     hf_token=f.read()
 
-retr_set_path=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Data/generator_input_data_gold_fixed_3.jsonl'
 
 model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+method='bm25'
+
+
+retr_set_path=rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_gold_fixed_3.jsonl'
+
 model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
 tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
@@ -53,11 +57,11 @@ corpus_length=len(length_set)
 
 # ########################
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/itr_index.json','r') as f:
+with open(fr'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/itr_index.json','r') as f:
     itr=json.load(f)
 
 unified_itr=[]
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_error_log_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+with open(rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_error_log_{model_name[model_name.index('/')+1:]}.jsonl','r') as f:
     for i in f:
         unified_itr.append(json.loads(i))
 
@@ -100,7 +104,7 @@ for i,j in tqdm(unified_itr1):
         final_output={'model':model_name,'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
 
 
-        with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
+        with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_output_{model_name[model_name.index('/')+1:]}.jsonl", "a") as f:
             f.write(json.dumps(final_output) + "\n")
             f.flush()
             os.fsync(f.fileno())
@@ -115,7 +119,7 @@ for i,j in tqdm(unified_itr1):
 
         error_data={'first_gold_doc_pos':i,'corpus_position':j,'error':str(e)}
 
-        with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_error_log_{model_name[model_name.index('/')+1:]}_2nd.jsonl", "a") as f:
+        with open(fr"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_error_log_{model_name[model_name.index('/')+1:]}_2nd.jsonl", "a") as f:
             f.write(json.dumps(error_data) + "\n")
             f.flush()
             os.fsync(f.fileno())

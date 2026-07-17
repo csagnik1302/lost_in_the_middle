@@ -9,11 +9,7 @@ import re
 #####################
 
 def split_glued_nuggets(raw):
-    """
-    Handles the case where the nugget field is a list containing ONE
-    string with all nuggets joined by '", "'. Splits it back into
-    individual nugget strings.
-    """
+    
     raw = raw.strip()
     if raw.startswith('"'):
         raw = raw[1:]

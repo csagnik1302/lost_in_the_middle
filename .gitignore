@@ -10,3 +10,5 @@ data_json/
 /home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Generator/__pycache__
 /home/irlab/sagnik/TREC-RAG_2024_Analysis/GINGER/__pycache__
 __pycache__/
+msmarco_v2.1_doc_segmented/
+indexes/

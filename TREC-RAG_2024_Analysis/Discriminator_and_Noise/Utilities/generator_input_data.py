@@ -1,34 +1,37 @@
 import json
 
+method='bm25'
+
 retr_set=[]
 qrel_0=[]
 qrel_1=[]
 qrel_2=[]
 qrel_3=[]
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/Retrieval Results.jsonl', 'r') as f:
+
+with open(rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data.jsonl', 'r') as f:
     for i in f:
         temp=json.loads(i)
         retr_set.append(temp)
 
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/qrels/qrels_0.jsonl','r') as f:
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/qrels/qrels_0.jsonl','r') as f:
     for i in f:
         temp=json.loads(i)
         qrel_0.append(temp)
 
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/qrels/qrels_1.jsonl','r') as f:
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/qrels/qrels_1.jsonl','r') as f:
     for i in f:
         temp=json.loads(i)
         qrel_1.append(temp)
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/qrels/qrels_2.jsonl','r') as f:
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/qrels/qrels_2.jsonl','r') as f:
     for i in f:
         temp=json.loads(i)
         qrel_2.append(temp)
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/qrels/qrels_3.jsonl','r') as f:
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/qrels/qrels_3.jsonl','r') as f:
     for i in f:
         temp=json.loads(i)
         qrel_3.append(temp)
@@ -124,7 +127,7 @@ for i in retr_set:
 
 
 ################################# HAS IN SOME CASES, A GOLD COUNT OF LESS THAN 3, TO PREVENT QUALITY DILUTION, WE ARE NOT USING IT FOR NOW ################
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data.jsonl','w') as f:
+with open(rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data.jsonl','w') as f:
         for i in generator_input_dict:
             f.write(json.dumps(i)+'\n')
 
@@ -132,7 +135,7 @@ with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Di
 
 generator_input_dict_gold_fixed_3=[i for i in generator_input_dict if len(i['doc_id_gold'])==3]
 
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data_gold_fixed_3.jsonl','w') as f:
+with open(rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_id_gold_fixed_3.jsonl','w') as f:
         for i in generator_input_dict_gold_fixed_3:
             f.write(json.dumps(i)+'\n')
 
