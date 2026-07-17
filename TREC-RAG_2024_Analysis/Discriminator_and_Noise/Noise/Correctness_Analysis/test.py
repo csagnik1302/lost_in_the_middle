@@ -236,12 +236,12 @@
 import json
 
 inp1=[]
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/bm25/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
     for i in f:
         inp1.append(json.loads(i))
 
 inp2=[]
-with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/bm25/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
     for i in f:
         inp2.append(json.loads(i))
 
@@ -254,6 +254,8 @@ out=[]
 for j in itr:
     temp2=j['first_gold_doc_pos']
     temp3=j['corpus_position']
+
+# test_indices=[0,6,13,19,25,32,38,44,51,57]
 
     if temp2==25:
         if temp3 not in out:
