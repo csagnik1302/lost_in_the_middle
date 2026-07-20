@@ -233,41 +233,46 @@
 # #####################################################
 
 
-# import json
+import json
 
-# inp1=[]
-# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/bm25/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
-#     for i in f:
-#         inp1.append(json.loads(i))
+inp1=[]
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/bm25/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+    for i in f:
+        inp1.append(json.loads(i))
 
-# inp2=[]
-# with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/bm25/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
-#     for i in f:
-#         inp2.append(json.loads(i))
+inp2=[]
+with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/bm25/pipeline_output_mistral-7b-instruct-v0.3-bnb-4bit.jsonl','r') as f:
+    for i in f:
+        inp2.append(json.loads(i))
 
-# k=[]
+k=[]
 
-# itr=inp1
+itr=inp1
 
-# out=[]
+out=[]
+sup_out=[]
 
-# for j in itr:
-#     temp2=j['first_gold_doc_pos']
-#     temp3=j['corpus_position']
+for k in [0,6,13,19,25,32,38,44,51,57]:
 
-# # test_indices=[0,6,13,19,25,32,38,44,51,57]
-
-#     if temp2==25:
-#         if temp3 not in out:
-#             out.append(temp3)
+    for j in itr:
+        temp2=j['first_gold_doc_pos']
+        temp3=j['corpus_position']
 
 
-# # ref=list(range(125))
+        if temp2==k:
+            if temp3 not in out:
+                out.append(temp3)
+    
+    sup_out.append(out)
 
-# # for i in out:
-# #     if i not in ref:
-# #         print(i)
 
-# print(sorted(out),len(sorted(out)))
+# ref=list(range(125))
 
-print('Hello')
+# for i in out:
+#     if i not in ref:
+#         print(i)
+
+for i in sup_out:
+    print(len(sorted(i)))
+
+# print('Hello')

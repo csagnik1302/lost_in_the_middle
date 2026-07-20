@@ -1,5 +1,6 @@
 import json
 import matplotlib.pyplot as plt
+import os
 
 output=[]
 
@@ -19,6 +20,8 @@ for i in output:
     
     if gold_temp not in gold_pos:
         gold_pos.append(gold_temp)
+
+gold_pos=sorted(gold_pos)
 
 all_score=[]
 all_strict_score=[]
@@ -63,7 +66,8 @@ plots = [
     (f"Weighted Strict Score (Model: {model_name})", weighted_strict_score),
 ]
 
-output_dir=rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Plots/{method}'
+output_dir=rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Plots/average/{method}'
+os.makedirs(output_dir,exist_ok=True)
 
 for title, scores in plots:
     plt.figure(figsize=(8, 5))
