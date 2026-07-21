@@ -25,7 +25,7 @@ def id_to_content(input_data,query_lookup_data):
 
         doc_id_location=i[17:19]
 
-        PATH=fr'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/msmarco_v2.1_doc_segmented/msmarco_v2.1_doc_segmented_{doc_id_location}.json.gz'
+        PATH=fr'/home/irlab/sagnik/Non_Factoid_Analysis/msmarco_v2.1_doc_segmented/msmarco_v2.1_doc_segmented_{doc_id_location}.json.gz'
         with gzip.open(PATH,'r') as f:
             found_in_file=False
             for k in f:
@@ -45,7 +45,7 @@ def id_to_content(input_data,query_lookup_data):
 
         doc_id_location=i[17:19]
 
-        PATH=fr'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/msmarco_v2.1_doc_segmented/msmarco_v2.1_doc_segmented_{doc_id_location}.json.gz'
+        PATH=fr'/home/irlab/sagnik/Non_Factoid_Analysis/msmarco_v2.1_doc_segmented/msmarco_v2.1_doc_segmented_{doc_id_location}.json.gz'
         with gzip.open(PATH,'r') as f:
             found_in_file=False
             for k in f:
@@ -72,13 +72,13 @@ if __name__=="__main__":
     retr_set=[]
     query_lookup_data=[]
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data_id_gold_fixed_3.jsonl', 'r') as f:
+    with open(r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/bm25/generator_input_data_id_gold_fixed_3.jsonl', 'r') as f:
         for i in f:
             temp=json.loads(i)
             retr_set.append(temp)
 
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/query_rag24.jsonl','r') as f:
+    with open(r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/query_rag24.jsonl','r') as f:
         for i in f:
             query_lookup_data_temp=json.loads(i)
             query_lookup_data.append(query_lookup_data_temp)   
@@ -89,7 +89,7 @@ if __name__=="__main__":
 
         output=id_to_content(i,query_lookup_data)
 
-        with open(r"/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data_gold_fixed_3.jsonl", "a") as f:
+        with open(r"/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/bm25/generator_input_data_gold_fixed_3.jsonl", "a") as f:
             f.write(json.dumps(output) + "\n")
             f.flush()
             os.fsync(f.fileno()) 

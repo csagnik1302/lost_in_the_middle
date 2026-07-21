@@ -23,7 +23,7 @@ for i in range(len(query)):
 	query1=query[i]
 	query_id1=query_id[i]
 
-	hits = searcher.search(query1,k=500)
+	hits = searcher.search(query1,k=1000)
 
 	with open(retrieval_results_path,'a') as f:
 		temp={}

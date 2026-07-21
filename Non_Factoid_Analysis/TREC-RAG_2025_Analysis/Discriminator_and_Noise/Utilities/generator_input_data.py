@@ -38,12 +38,42 @@ with open(r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2025_Analysis/Discr
 
 
 
+
+ignore_query1=[i['query_id'] for i in qrel_1 if len(i['doc_id'])<57]
+ignore_query2=[i['query_id'] for i in qrel_2 if len(i['doc_id'])<57]
+
+ignore_query_comb=[i for i in ignore_query1 if i in ignore_query2]
+
+ignore_query=[]
+
+
+
+for i in ignore_query_comb:
+    m=0
+    for j in qrel_1:
+        if j['query_id']==i:
+            m+=len(j['doc_id'])
+        
+            for k in qrel_2:
+                if k['query_id']==i:
+                    m+=len(k['doc_id'])
+
+                    if m<57:
+                        ignore_query.append(i)
+
+
+
+
 generator_input_dict=[]
 
 test_count=0
 test_count1=0
 
 for i in retr_set:
+
+    if i['query_id'] in ignore_query:
+        continue
+    
     generator_input_dict_temp={}
     generator_input_dict_temp['doc_id_discriminator']=[]
     generator_input_dict_temp['doc_id_gold']=[]
@@ -53,7 +83,10 @@ for i in retr_set:
 
     generator_input_dict_temp['query_id']=query_id
 
-    for j in qrel_0:
+
+        
+    for j in qrel_1:
+
         if j['query_id']==query_id:
             count=0
             for k in range(len(hits)):
@@ -65,6 +98,7 @@ for i in retr_set:
                         break
 
     for l in qrel_3:
+
         if l['query_id']==query_id:
             count1=0
             for m in range(len(hits)):
@@ -77,52 +111,34 @@ for i in retr_set:
 
 
     current_disc_count=len(generator_input_dict_temp['doc_id_discriminator'])
-    hits_reversed=hits[::-1]
 
     if current_disc_count<57:
 
-        print(f'incomplete: {current_disc_count}')
-
         counter=current_disc_count
 
-        for o in range(len(hits_reversed)):
+        for j in qrel_2:
 
-            Flag=True
+            flag=False
 
-            for n in qrel_0:
+            if j['query_id']==query_id:
+                for k in range(len(hits)):
+                    if hits[k][0] in j['doc_id']:
+                        if hits[k][0] not in generator_input_dict_temp['doc_id_discriminator']:
+                            generator_input_dict_temp['doc_id_discriminator'].append(hits[k][0])
+                            counter+=1
 
-                if n['query_id']==query_id:
-                        if hits_reversed[o][0] in n['doc_id']:
-                            Flag=False
+                            if counter==57:
+                                flag=True
+                                break
 
+                if flag==True:
+                    break
+                        
 
-            for p in qrel_1:
-                if p['query_id']==query_id:
-                        if hits_reversed[o][0] in p['doc_id']:
-                            Flag=False
-
-
-            for r in qrel_2:
-                if r['query_id']==query_id:
-                        if hits_reversed[o][0] in r['doc_id']:
-                            Flag=False
-
-
-            for t in qrel_3:
-                if t['query_id']==query_id:
-                        if hits_reversed[o][0] in t['doc_id']:
-                            Flag=False
-
-        
-            if Flag==True:
-                generator_input_dict_temp['doc_id_discriminator'].append(hits_reversed[o][0])
-                counter+=1           
-
-            if counter==57:
-                break
 
     print(f'For Query: {test_count} | Discriminator Count: {len(generator_input_dict_temp['doc_id_discriminator'])} | Gold Count: {len(generator_input_dict_temp['doc_id_gold'])}')
-    test_count+=1
+    # test_count+=1
+
 
     generator_input_dict.append(generator_input_dict_temp)
 
@@ -134,11 +150,11 @@ for i in retr_set:
 
 # ####################################################################################################################################
 
-generator_input_dict_gold_fixed_3=[i for i in generator_input_dict if len(i['doc_id_gold'])==3]
+generator_input_dict_gold_fixed_3=[i for i in generator_input_dict if len(i['doc_id_gold'])==3 and len(i['doc_id_discriminator'])==57]
 
 with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2025_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_id_gold_fixed_3.jsonl','w') as f:
-    for i in generator_input_dict_gold_fixed_3:
-        f.write(json.dumps(i)+'\n')
+        for i in generator_input_dict_gold_fixed_3:
+            f.write(json.dumps(i)+'\n')
 
 
 
