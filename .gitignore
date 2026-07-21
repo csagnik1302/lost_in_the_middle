@@ -4,3 +4,4 @@ data_json/
 __pycache__/
 msmarco_v2.1_doc_segmented/
 indexes/
+Retrieval_Results.jsonl
