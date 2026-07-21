@@ -1,0 +1,142 @@
+[
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Vicarious Trauma: Indirect exposure to a traumatic event\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Symptoms: Anxiety, anger, sadness, PTSD\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Susceptible: Helping professionals, close trauma survivors\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Risk factors: Lack of self-care, inadequate training\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Treatment: Therapy, self-care practices\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Prevention: Training, supervision, self-care\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Impact on Mental Health: Emotional issues, PTSD\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Helping Professionals: Doctors, nurses, counsellors\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Others at risk: Police, soldiers, journalists\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Therapy benefits: Discuss impact, build coping skills\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Self-care practices: Essential for frequent trauma exposure\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Diagnostic criteria: Repeated exposure to aversive details\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Prevent future recurrences: Self-care practices\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeAssignerLLM, an intelligent assistant that can label an atomic nugget based on if it is captured by a given passage."
+    },
+    {
+      "role": "user",
+      "content": "Based on the query and passage, label the nugget either as support, partial_support, or not_support using the following criteria. A nugget that is fully captured in the passage should be labeled as support. A nugget that is partially captured in the passage should be labeled as partial_support. If the nugget is not captured at all, label it as not_support.\nSearch Query: what is vicarious trauma and how can it be coped with?\nPassage: Vicarious trauma is a type of trauma that occurs when a person is indirectly exposed to a traumatic event, such as a violent crime, natural disaster, or the suffering of others. This can happen to people who work in helping professions, such as counselors, therapists, social workers, police officers, and first responders, but it can also affect anyone who has a close relationship with someone who has experienced trauma.  Symptoms of vicarious trauma can include feelings of anxiety, depression, anger, guilt, and a sense of helplessness. Some people may also experience physical symptoms, such as headaches, stomachaches, and difficulty sleeping. In severe cases, vicarious trauma can lead to burnout, compassion fatigue, and even post-traumatic stress disorder (PTSD).  To cope with vicarious trauma, it is important to take care of oneself and seek support from others. This can include talking to a\nNugget: Vicarious Trauma: Change in personal beliefs about self and world\nOnly return the labels (support, partial_support, or not_support). Do not explain.\nLabel:"
+    }
+  ]
+]

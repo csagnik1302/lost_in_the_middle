@@ -1,0 +1,39 @@
+{
+  "query": "why did desoto fail",
+  "nugget_list": [
+    "1958 recession hurt DeSoto sales",
+    "DeSoto sales failed to recover in 1959 and 1960",
+    "DeSoto models similar to concurrent Chryslers",
+    "Rumors of DeSoto discontinuation",
+    "Weakened DeSoto dealer network",
+    "Chrysler spun Plymouth off into standalone dealerships",
+    "Dealers chose higher-volume Plymouth over DeSoto",
+    "DeSoto failed to adjust to changing market trends",
+    "No new compact car model in 1960",
+    "Chrysler's brand management pitted divisions against each other",
+    "Lack of careful market management",
+    "General Motors had successful market planning",
+    "DeSoto's failure hastened its demise",
+    "Compounded by 1961 Newport model introduction",
+    "Newport model was an upper-tier DeSoto competitor",
+    "DeSoto brand pushed to the brink in 1961"
+  ],
+  "NuggetizeLLM_output": [
+    "okay",
+    "vital",
+    "okay",
+    "okay",
+    "vital",
+    "okay",
+    "okay",
+    "vital",
+    "okay",
+    "okay",
+    "vital",
+    "okay",
+    "vital",
+    "okay",
+    "okay",
+    "vital"
+  ]
+}

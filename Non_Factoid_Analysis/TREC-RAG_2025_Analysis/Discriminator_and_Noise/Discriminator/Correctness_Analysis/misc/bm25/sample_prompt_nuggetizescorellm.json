@@ -1,0 +1,142 @@
+[
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Vicarious Trauma: Indirect exposure to a traumatic event\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Symptoms: Anxiety, anger, sadness, PTSD\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Susceptible: Helping professionals, close trauma survivors\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Risk factors: Lack of self-care, inadequate training\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Treatment: Therapy, self-care practices\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Prevention: Training, supervision, self-care\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Impact on Mental Health: Emotional issues, PTSD\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Helping Professionals: Doctors, nurses, counsellors\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Others at risk: Police, soldiers, journalists\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Therapy benefits: Discuss impact, build coping skills\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Self-care practices: Essential for frequent trauma exposure\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Diagnostic criteria: Repeated exposure to aversive details\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Prevent future recurrences: Self-care practices\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ],
+  [
+    {
+      "role": "system",
+      "content": "You are NuggetizeScoreLLM, an intelligent assistant that can label an atomic nugget based on their importance for a given search query."
+    },
+    {
+      "role": "user",
+      "content": "Based on the search query, label the nugget either a vital or okay based on the following criteria. Vital nuggets represent concepts that must be present in a \u201cgood\u201d answer; on the other hand, okay nuggets contribute worthwhile information about the target but are not essential.\nSearch Query: what is vicarious trauma and how can it be coped with?\nNugget: Vicarious Trauma: Change in personal beliefs about self and world\nOnly return the labels (vital or okay). Do not explain.\nLabel:"
+    }
+  ]
+]
