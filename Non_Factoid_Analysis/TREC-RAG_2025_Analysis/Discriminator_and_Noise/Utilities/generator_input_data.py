@@ -39,28 +39,30 @@ with open(r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2025_Analysis/Discr
 
 
 
-ignore_query1=[i['query_id'] for i in qrel_1 if len(i['doc_id'])<57]
-ignore_query2=[i['query_id'] for i in qrel_2 if len(i['doc_id'])<57]
+# ignore_query1=[i['query_id'] for i in qrel_1 if len(i['doc_id'])<57]
+# ignore_query0=[i['query_id'] for i in qrel_0 if len(i['doc_id'])<57]
 
-ignore_query_comb=[i for i in ignore_query1 if i in ignore_query2]
+# ignore_query_comb=[i for i in ignore_query1 if i in ignore_query0]
 
-ignore_query=[]
+# ignore_query=[]
 
 
 
-for i in ignore_query_comb:
-    m=0
-    for j in qrel_1:
-        if j['query_id']==i:
-            m+=len(j['doc_id'])
+# for i in ignore_query_comb:
+#     m=0
+#     for j in qrel_1:
+#         if j['query_id']==i:
+#             m+=len(j['doc_id'])
         
-            for k in qrel_2:
-                if k['query_id']==i:
-                    m+=len(k['doc_id'])
+#             for k in qrel_0:
+#                 if k['query_id']==i:
+#                     m+=len(k['doc_id'])
 
-                    if m<57:
-                        ignore_query.append(i)
+#                     if m<57:
+#                         ignore_query.append(i)
 
+
+ignore_query=[i['query_id'] for i in qrel_1 if len(i['doc_id'])<57]
 
 
 
@@ -112,11 +114,13 @@ for i in retr_set:
 
     current_disc_count=len(generator_input_dict_temp['doc_id_discriminator'])
 
+    print(f'Qrel1 count: {current_disc_count}')
+
     if current_disc_count<57:
 
         counter=current_disc_count
 
-        for j in qrel_2:
+        for j in qrel_0:
 
             flag=False
 
@@ -136,11 +140,9 @@ for i in retr_set:
                         
 
 
-    print(f'For Query: {test_count} | Discriminator Count: {len(generator_input_dict_temp['doc_id_discriminator'])} | Gold Count: {len(generator_input_dict_temp['doc_id_gold'])}')
-    # test_count+=1
-
-
-    generator_input_dict.append(generator_input_dict_temp)
+    if current_disc_count==57:
+        print(f'For Query: {test_count} | Discriminator Count: {len(generator_input_dict_temp['doc_id_discriminator'])} | Gold Count: {len(generator_input_dict_temp['doc_id_gold'])}')
+        generator_input_dict.append(generator_input_dict_temp)
 
 
 # ################################# HAS IN SOME CASES, A GOLD COUNT OF LESS THAN 3, TO PREVENT QUALITY DILUTION, WE ARE NOT USING IT FOR NOW ################
