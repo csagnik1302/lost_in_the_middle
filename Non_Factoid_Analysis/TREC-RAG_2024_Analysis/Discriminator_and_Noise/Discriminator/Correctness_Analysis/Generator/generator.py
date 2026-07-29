@@ -70,7 +70,7 @@ if __name__=='__main__':
     retr_set_path=rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_gold_fixed_3.jsonl'
 
     model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-    model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
+    model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2',device_map='auto')
     tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
     output_text, query=llm_output_generator(0,0,model,tokenizer,retr_set_path)
