@@ -7,7 +7,7 @@ output=[]
 model_name='mistral-7b-instruct-v0.3-bnb-4bit'
 method='bm25'
 
-with open(rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/{method}/pipeline_output_{model_name}.jsonl','r') as f:
+with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/{method}/pipeline_output_{model_name}.jsonl','r') as f:
     for i in f:
         temp=json.loads(i)
         output.append(temp)
@@ -66,7 +66,7 @@ plots = [
     (f"Weighted Strict Score (Model: {model_name})", weighted_strict_score),
 ]
 
-output_dir=rf'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Plots/average/{method}'
+output_dir=rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Plots/average/{method}'
 os.makedirs(output_dir,exist_ok=True)
 
 for title, scores in plots:
