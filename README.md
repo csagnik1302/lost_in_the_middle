@@ -4,6 +4,23 @@ Experimental code for investigating how the position of relevant information in 
 
 > **Research code:** this is not a packaged library. Many scripts preserve the original absolute paths, model selections, and output conventions. Review and update their configuration before running them on another machine.
 
+<p align="left">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.10--3.12-3776AB?logo=python&logoColor=white">
+  <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.12.0-EE4C2C?logo=pytorch&logoColor=white">
+  <img alt="Transformers" src="https://img.shields.io/badge/Transformers-5.12.0-FFD21E?logo=huggingface&logoColor=black">
+  <img alt="Accelerate" src="https://img.shields.io/badge/Accelerate-1.14.0-FFD21E?logo=huggingface&logoColor=black">
+  <img alt="Hugging Face Hub" src="https://img.shields.io/badge/huggingface__hub-1.19.0-FFD21E?logo=huggingface&logoColor=black">
+  <img alt="bitsandbytes" src="https://img.shields.io/badge/bitsandbytes-0.49.2-4B8BBE">
+  <img alt="Flash Attention" src="https://img.shields.io/badge/flash--attn-2.8.3-76B900?logo=nvidia&logoColor=white">
+  <img alt="CUDA Toolkit" src="https://img.shields.io/badge/CUDA%20Toolkit-13.0.2-76B900?logo=nvidia&logoColor=white">
+  <img alt="Matplotlib" src="https://img.shields.io/badge/Matplotlib-3.11.0-11557C?logo=plotly&logoColor=white">
+  <img alt="tqdm" src="https://img.shields.io/badge/tqdm-4.68.2-FFC107">
+</p>
+
+> These versions describe the environment that produced the committed experiment artefacts. Pin or record the versions used for any new run. Quantized experiments additionally use AWQ INT4 model builds; FlashAttention is needed only when retaining `attn_implementation="flash_attention_2"`.
+
+**Navigate:** [Study](#study-at-a-glance) · [Experiments](#experiment-families) · [Results](#results-gallery) · [Setup](#requirements) · [Running](#running-the-factoid-experiments) · [Report](#report)
+
 ## Study at a glance
 
 The accompanying findings report frames the repository around three related investigations:
@@ -13,6 +30,16 @@ The accompanying findings report frames the repository around three related inve
 - **Non-factoid RAG:** TREC RAG 2024/2025-style queries are evaluated with a nugget-based correctness pipeline while gold documents are moved among either semantically related *discriminator* documents or unrelated *noise* documents.
 
 The report finds weak positional effects in multi-document QA, no consistent classic U-shaped curve for synthetic key-value retrieval at the tested context sizes, strong early-token attention sinks in the sampled QA prompts, and a clearer Lost-in-the-Middle pattern in the non-factoid qrel-1 discriminator setting. Treat these as experimental findings for the reported models, datasets, and configurations rather than general benchmarks.
+
+## Project progress
+
+| Workstream | Completed work | Main outputs | Status |
+| --- | --- | --- | --- |
+| KV retrieval | Position-controlled experiments at 75, 140, and 300 keys | Generations and accuracy-by-position plots | Complete baseline |
+| Multi-document QA | Gold-document position experiments at 10, 20, and 30 documents | Exact-match counts and accuracy plots | Complete baseline |
+| Attention-sink analysis | Per-token attention measurements across heads and layers | Attention data and line charts | Initial analysis complete |
+| TREC RAG discriminator | Generation, nugget evaluation, and correctness scoring | JSONL pipeline outputs and six score plots | In progress |
+| TREC RAG noise | Equivalent evaluation with noise contexts | JSONL outputs, error logs, and score plots | In progress |
 
 ## Experiment families
 
@@ -44,6 +71,33 @@ The main pipeline drivers are the `main.py` and `main_corr.py` files in the rele
 - `average_attention_metric_computation_without_dropout.py`
 
 These scripts request `output_attentions=True` during generation and save plots below `attention_sink_analysis/Plot/`. The reported attention study evaluates the first generated token in 10-document QA prompts. `data/TREC_RAG_Dataset_export.py` exports the TREC RAG dataset through the Hugging Face `datasets` package.
+
+## Experiment workflow
+
+```mermaid
+flowchart LR
+    A["Choose dataset and context size"] --> B["Place gold evidence at a target position"]
+    B --> C["Build the ordered long-context prompt"]
+    C --> D["Run greedy LLM generation"]
+    D --> E{"Evaluation"}
+    E --> F["Exact match: QA / KV"]
+    E --> G["Nugget support: TREC RAG"]
+    E --> H["Attention aggregation"]
+    F --> I["Save raw outputs and plots"]
+    G --> I
+    H --> I
+```
+
+The core design keeps position as the primary experimental variable. QA and KV runs use deterministic decoding (`do_sample=False`); the TREC pipeline adds nugget-based correctness metrics, and attention experiments inspect the model's generation-time attention tensors.
+
+## Results gallery
+
+<p align="center">
+  <img src="Factoid_Analysis/Plots/qa_retrieval_accuracy_30_docs.png" alt="Question-answering retrieval accuracy across gold-document positions for 30 documents" width="48%">
+  <img src="Factoid_Analysis/Plots/kv_retrieval_accuracy_300.png" alt="Key-value retrieval accuracy across gold-pair positions for 300 keys" width="48%">
+</p>
+
+<p align="center"><em>Committed reference plots for the 30-document QA and 300-key KV settings. See <code>Factoid_Analysis/Plots/</code> and the report for the full collection.</em></p>
 
 ## Repository layout
 
