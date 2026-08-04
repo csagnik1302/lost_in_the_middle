@@ -1,131 +1,136 @@
 # Lost in the Middle
 
-Research scripts for studying how the position of relevant information in a long context affects language-model retrieval. The repository contains controlled factoid experiments and attention-score analysis for long-context prompts.
+Experimental code for investigating how the position of relevant information in long contexts affects language-model behaviour. The repository includes controlled factoid retrieval experiments, TREC RAG correctness analyses, and generation-time attention measurements.
 
-This is experimental research code, not a packaged library. The scripts retain the original model choices, absolute paths, and output conventions used for the experiments; adapt those settings before running them on another machine.
+> **Research code:** this is not a packaged library. Many scripts preserve the original absolute paths, model selections, and output conventions. Review and update their configuration before running them on another machine.
 
-## Included experiments
+## Study at a glance
 
-### Key-value retrieval
+The accompanying findings report frames the repository around three related investigations:
 
-`Factoid_Analysis/KV_Retrieval/` measures whether a model can retrieve the value for a requested key from a JSON object when the target key-value pair is placed at different positions.
+- **Factoid retrieval:** controlled multi-document QA from NaturalQuestions-Open and synthetic UUID key-value retrieval. Both move the answer-bearing document or key-value pair across the input context to measure positional effects.
+- **Attention sinks:** generation-time attention is aggregated across layers and heads for the QA setting, with experiments that compare dropout configurations.
+- **Non-factoid RAG:** TREC RAG 2024/2025-style queries are evaluated with a nugget-based correctness pipeline while gold documents are moved among either semantically related *discriminator* documents or unrelated *noise* documents.
 
-- `Model.py` runs greedy generation over selected target positions and scores a response by matching its UUID to the expected value.
-- `prompt_creation_kv.py` constructs the JSON retrieval prompt and moves the target pair to the requested index.
-- `../Plots/` contains saved generations and accuracy figures for 75-, 140-, and 300-key configurations.
+The report finds weak positional effects in multi-document QA, no consistent classic U-shaped curve for synthetic key-value retrieval at the tested context sizes, strong early-token attention sinks in the sampled QA prompts, and a clearer Lost-in-the-Middle pattern in the non-factoid qrel-1 discriminator setting. Treat these as experimental findings for the reported models, datasets, and configurations rather than general benchmarks.
 
-### Multi-document QA
+## Experiment families
 
-`Factoid_Analysis/QA/` measures answer accuracy as the answer-bearing document moves through a set of retrieved documents.
+### Factoid analysis
 
-- `Model.py` evaluates configured JSONL datasets, using greedy generation and answer-substring exact match.
-- `Model_Oracle.py` is the corresponding oracle-context experiment.
-- `prompt_creation_qa.py` formats documents, questions, and accepted answers into a model prompt.
-- `response_matching.py` normalizes predictions and accepted answers before evaluation.
+`Factoid_Analysis/` contains two controlled experiments based on Hugging Face text-generation pipelines.
 
-The checked-in plots in `Factoid_Analysis/Plots/` cover contexts with 10, 20, and 30 documents.
+- **Key-value retrieval** (`KV_Retrieval/`) tests whether a model can return the value for a requested key when its key-value pair is moved through a JSON context. The report uses 500 examples at 75, 140, and 300 key-value pairs. `Model.py` runs the experiment; `prompt_creation_kv.py` constructs prompts.
+- **Multi-document QA** (`QA/`) tests answer accuracy as the answer-bearing document moves through a retrieved-document set. The report uses 2,655 NaturalQuestions-Open examples at 10, 20, and 30 documents. `Model.py` runs the standard experiment and `Model_Oracle.py` runs the oracle-context variant. Prompt construction and answer matching live in `prompt_creation_qa.py` and `response_matching.py`.
+- **Reference artefacts** (`Plots/`) include committed generations and accuracy plots for the KV (75, 140, and 300 keys) and QA (10, 20, and 30 documents) configurations.
 
-### Attention analysis
+### Non-factoid TREC RAG analysis
 
-`attention_sink_analysis/` contains scripts that extract generation-time attention weights from a causal language model and aggregate them across heads, layers, and prompts. Variants are provided for average attention, dropout, and no-dropout analysis.
+`Non_Factoid_Analysis/` holds parallel pipelines for the **TREC RAG 2024** and **TREC RAG 2025** collections. Each `Discriminator_and_Noise/` tree includes:
+
+- BM25 indexing and retrieval helpers in `BM_25_Retrieval/Retriever/` (Pyserini/Lucene).
+- Utilities for preparing query, relevance, and generator-input JSONL files.
+- `Discriminator/Correctness_Analysis/`, which generates answers, extracts and scores nuggets, assigns answer support, evaluates six correctness metrics, and creates plots.
+- `Noise/Correctness_Analysis/`, the corresponding noise-oriented workflow.
+
+The main pipeline drivers are the `main.py` and `main_corr.py` files in the relevant `Correctness_Analysis/` directory. They are configured directly in source and save progress/output JSONL under `misc/`. The reported setup uses 60-document contexts (three qrel-3 gold documents and 57 non-gold documents) and averages all, strict, vital, and weighted nugget-support metrics across queries.
+
+### Attention-sink analysis
+
+`attention_sink_analysis/` measures generation-time attention over QA-style prompts. It provides scripts for average attention scores and average attention metrics with and without dropout:
+
+- `average_attention_score_computation.py`
+- `average_attention_metric_computation_with_dropout.py`
+- `average_attention_metric_computation_without_dropout.py`
+
+These scripts request `output_attentions=True` during generation and save plots below `attention_sink_analysis/Plot/`. The reported attention study evaluates the first generated token in 10-document QA prompts. `data/TREC_RAG_Dataset_export.py` exports the TREC RAG dataset through the Hugging Face `datasets` package.
 
 ## Repository layout
 
 ```text
 Factoid_Analysis/
-  KV_Retrieval/                 # Synthetic JSON key-value retrieval
-  QA/                           # Multi-document question answering
-  Plots/                        # Committed generated outputs and figures
-attention_sink_analysis/
-  data/                         # Small checked-in probe data and export helper
-  *.py                          # Attention aggregation experiments
-test.py                         # Local inspection helper for a TREC retrieval file
+  KV_Retrieval/                    # Synthetic JSON key-value retrieval
+  QA/                              # Multi-document question answering
+  Plots/                           # Saved outputs and figures
+Non_Factoid_Analysis/
+  TREC-RAG_2024_Analysis/          # 2024 RAG discriminator/noise workflows
+  TREC-RAG_2025_Analysis/          # 2025 RAG discriminator/noise workflows
+attention_sink_analysis/           # Generation-time attention experiments
+Report/                            # Project report (PDF)
 ```
 
 ## Requirements
 
 - Python 3.10+
-- PyTorch with CUDA support for the supplied model configurations
-- An NVIDIA GPU with enough memory for the selected model
-- A Hugging Face token with access to the selected model, where required
+- PyTorch with CUDA support and an NVIDIA GPU suitable for the selected model
+- A Hugging Face token with access to the selected gated model, where required
+- Java and Pyserini for the BM25 retrieval scripts
 
-Install the Python dependencies into a virtual environment:
+Create a virtual environment and install the common dependencies:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-pip install torch transformers matplotlib tqdm regex
+pip install torch transformers matplotlib tqdm regex datasets pyserini setproctitle
 ```
 
-The default scripts reference `meta-llama/Meta-Llama-3.1-8B-Instruct` or `hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4`. You may need additional model-specific dependencies or a compatible quantization backend for AWQ models.
+The checked-in scripts use models including `meta-llama/Meta-Llama-3.1-8B-Instruct`, its AWQ INT4 variant, and `unsloth/mistral-7b-instruct-v0.3-bnb-4bit`. AWQ models, FlashAttention, and bitsandbytes may need compatible CUDA/PyTorch builds and additional model-specific dependencies.
 
-## Data and credentials
+## Before running
 
-The full KV and QA datasets are **not included** in this checkout. Before running an experiment, obtain or recreate the required JSONL files and update the input paths in the relevant script.
+1. Set a Hugging Face token without committing it:
 
-The original scripts read a Hugging Face token from an absolute `API_KEY` file. For a portable setup, use an environment variable instead:
+   ```bash
+   export HF_TOKEN='hf_...'
+   ```
 
-```bash
-export HF_TOKEN='hf_...'
-```
+   For each script you run, replace its `API_KEY` file read with:
 
-Then replace the token-file read in the script you are running with:
+   ```python
+   import os
 
-```python
-import os
+   TOKEN = os.environ["HF_TOKEN"]
+   ```
 
-TOKEN = os.environ["HF_TOKEN"]
-```
+2. Update absolute input, output, and `sys.path` entries. Many scripts reference the original `/home/irlab/sagnik/...` environment, and a few helper scripts contain a Windows path.
+3. Confirm that the expected JSONL inputs are available. The repository includes selected data and sample/intermediate outputs, but some workflows expect additional corpora or retrieval results not committed here.
+4. Start with a small position/query range. Attention extraction and multi-stage RAG evaluation are GPU- and memory-intensive.
 
-Never commit a token. `API_KEY` is ignored by Git.
+## Running the factoid experiments
 
-## Running an experiment
-
-All experiment scripts currently contain machine-specific paths such as `/home/irlab/sagnik/...`. Update the input-data paths, output paths, and token loading before executing them.
-
-### KV retrieval
-
-In `Factoid_Analysis/KV_Retrieval/Model.py`, set the dataset path, model, output paths, and the `positions` to evaluate. Then run from that directory so the local prompt module resolves correctly:
+Run these scripts from their own directories so their local imports resolve:
 
 ```bash
 cd Factoid_Analysis/KV_Retrieval
 python Model.py
 ```
 
-The script writes one JSONL record per generation, stores aggregate correct counts, and saves an accuracy-by-position figure.
-
-### QA retrieval
-
-In `Factoid_Analysis/QA/Model.py`, configure `PATHS`, the model, token loading, and output locations. Run:
+Configure the dataset, model, target positions, token, and output locations in `Model.py` first. It writes generation records, aggregates correct answers, and produces accuracy-by-position plots.
 
 ```bash
 cd Factoid_Analysis/QA
 python Model.py
+# or, after configuring it:
+python Model_Oracle.py
 ```
 
-For the oracle configuration, update `Model_Oracle.py` and run `python Model_Oracle.py`. Note that the checked-in oracle script needs `correct_array` initialized before it can append its result.
+Set `PATHS`, the model/token, and output locations in the QA driver before execution. The oracle driver also requires its result accumulator to be initialized before appending results.
 
-### Attention scores
+## Running the TREC pipelines
 
-Set the QA data path, model, output directory, `prompt_count`, `doc_count`, and `gold_count` in the attention script you choose. For example:
+The TREC workflows are source-configured rather than command-line tools. Choose the 2024 or 2025 tree, then set the model, token, method, input/output paths, module paths, and iteration range in the appropriate `main.py` or `main_corr.py`. Run from its `Correctness_Analysis/` directory so the local module imports resolve.
 
-```bash
-python attention_sink_analysis/average_attention_score_computation.py
-```
+For BM25 retrieval, first configure and run `BM_25_Retrieval/Retriever/indexer.py`; then configure and run `retriever.py`. Both expect a compatible Pyserini/Lucene environment and the target corpus.
 
-Attention extraction is memory-intensive because it requests attention tensors during generation. Start with one prompt and a small number of documents.
+## Reproducibility and limitations
 
-## Reproducibility notes
+- Keep the model revision, quantization, dataset version, target positions, decoding settings, CUDA version, and GPU model fixed when comparing runs.
+- The factoid drivers use greedy decoding (`do_sample=False`); their output length is configured in the scripts.
+- Preserve reference artefacts by writing new runs to distinct output files.
+- No lockfile or pinned dependency set is provided.
+- Several scripts assume CUDA and will not run unchanged on CPU-only machines.
 
-- Keep the model revision, quantization, dataset version, target positions, and generation settings fixed when comparing positions.
-- The main KV and QA scripts use greedy decoding (`do_sample=False`) with `max_new_tokens=70`.
-- Save new runs to distinct output files so that the committed reference artifacts remain intact.
-- Record the PyTorch, Transformers, CUDA, and GPU versions used for every run.
+## Report
 
-## Known limitations
-
-- Dataset, credential, and output paths are hard-coded in the original scripts.
-- There is no lockfile or pinned dependency set.
-- Several scripts assume a CUDA device and will not run unchanged on CPU-only systems.
-- The repository includes reference outputs and plots, but not the large datasets needed to reproduce them end to end.
+The complete methodology, result tables, figures, and references are available at [`Report/Sagnik_Chandra_Lost_in_the_Middle_Report.pdf`](Report/Sagnik_Chandra_Lost_in_the_Middle_Report.pdf).
