@@ -17,11 +17,11 @@ warnings.filterwarnings(
 )
 
 import sys
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Generator')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeLLM')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeScoreLLM')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeAssignerLLM')
-sys.path.insert(0,r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Evaluation')
+sys.path.insert(0,r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Generator')
+sys.path.insert(0,r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeLLM')
+sys.path.insert(0,r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeScoreLLM')
+sys.path.insert(0,r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/NuggetizeAssignerLLM')
+sys.path.insert(0,r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/Evaluation')
 
 from generator import llm_output_generator
 from NuggetizeLLM import NuggetizeLLM
