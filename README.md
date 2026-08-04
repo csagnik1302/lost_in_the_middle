@@ -72,22 +72,6 @@ The main pipeline drivers are the `main.py` and `main_corr.py` files in the rele
 
 These scripts request `output_attentions=True` during generation and save plots below `attention_sink_analysis/Plot/`. The reported attention study evaluates the first generated token in 10-document QA prompts. `data/TREC_RAG_Dataset_export.py` exports the TREC RAG dataset through the Hugging Face `datasets` package.
 
-## Experiment workflow
-
-```mermaid
-flowchart LR
-    A["Choose dataset and context size"] --> B["Place gold evidence at a target position"]
-    B --> C["Build the ordered long-context prompt"]
-    C --> D["Run greedy LLM generation"]
-    D --> E{"Evaluation"}
-    E --> F["Exact match: QA / KV"]
-    E --> G["Nugget support: TREC RAG"]
-    E --> H["Attention aggregation"]
-    F --> I["Save raw outputs and plots"]
-    G --> I
-    H --> I
-```
-
 The core design keeps position as the primary experimental variable. QA and KV runs use deterministic decoding (`do_sample=False`); the TREC pipeline adds nugget-based correctness metrics, and attention experiments inspect the model's generation-time attention tensors. The complete result tables and figures remain in the project report, where they are accompanied by their methodology and interpretation.
 
 ## Repository layout
