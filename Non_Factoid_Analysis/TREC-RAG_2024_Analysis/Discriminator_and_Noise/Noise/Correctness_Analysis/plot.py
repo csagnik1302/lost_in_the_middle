@@ -64,6 +64,8 @@ plots = [
     (f"Weighted Strict Score (Model: {model_name})", weighted_strict_score),
 ]
 
+print(plots)
+
 output_dir=rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/Plots/average/{method}'
 os.makedirs(output_dir,exist_ok=True)
 
