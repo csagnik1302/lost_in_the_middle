@@ -19,7 +19,7 @@ Experimental code for investigating how the position of relevant information in 
 
 > These versions describe the environment that produced the committed experiment artefacts. Pin or record the versions used for any new run. Quantized experiments additionally use AWQ INT4 model builds; FlashAttention is needed only when retaining `attn_implementation="flash_attention_2"`.
 
-**Navigate:** [Study](#study-at-a-glance) · [Experiments](#experiment-families) · [Results](#results-gallery) · [Setup](#requirements) · [Running](#running-the-factoid-experiments) · [Report](#report)
+**Navigate:** [Study](#study-at-a-glance) · [Experiments](#experiment-families) · [Setup](#requirements) · [Running](#running-the-factoid-experiments) · [Report](#report)
 
 ## Study at a glance
 
@@ -88,16 +88,7 @@ flowchart LR
     H --> I
 ```
 
-The core design keeps position as the primary experimental variable. QA and KV runs use deterministic decoding (`do_sample=False`); the TREC pipeline adds nugget-based correctness metrics, and attention experiments inspect the model's generation-time attention tensors.
-
-## Results gallery
-
-<p align="center">
-  <img src="Factoid_Analysis/Plots/qa_retrieval_accuracy_30_docs.png" alt="Question-answering retrieval accuracy across gold-document positions for 30 documents" width="48%">
-  <img src="Factoid_Analysis/Plots/kv_retrieval_accuracy_300.png" alt="Key-value retrieval accuracy across gold-pair positions for 300 keys" width="48%">
-</p>
-
-<p align="center"><em>Committed reference plots for the 30-document QA and 300-key KV settings. See <code>Factoid_Analysis/Plots/</code> and the report for the full collection.</em></p>
+The core design keeps position as the primary experimental variable. QA and KV runs use deterministic decoding (`do_sample=False`); the TREC pipeline adds nugget-based correctness metrics, and attention experiments inspect the model's generation-time attention tensors. The complete result tables and figures remain in the project report, where they are accompanied by their methodology and interpretation.
 
 ## Repository layout
 
