@@ -1,3 +1,7 @@
 {"first_gold_doc_pos": 0, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
 {"first_gold_doc_pos": 6, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
-{"first_gold_doc_pos": 13, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
+{"first_gold_doc_pos": 13, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}{"first_gold_doc_pos": 19, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
+{"first_gold_doc_pos": 25, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
+{"first_gold_doc_pos": 32, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
+{"first_gold_doc_pos": 38, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
+{"first_gold_doc_pos": 44, "corpus_position": 91, "error": "cannot access local variable 'ending_ind' where it is not associated with a value"}
