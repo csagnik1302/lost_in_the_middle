@@ -7,7 +7,7 @@ output=[]
 model_name='mistral-7b-instruct-v0.3-bnb-4bit'
 method='bm25'
 
-with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/{method}/pipeline_output_{model_name}_without_rag.jsonl','r') as f:
+with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_output_{model_name}_without_rag.jsonl','r') as f:
     for i in f:
         temp=json.loads(i)
         output.append(temp)
@@ -80,3 +80,5 @@ for title, scores in plots:
     plt.tight_layout()
     plt.savefig(f"{output_dir}/{title.lower().replace(' ', '_')}.png", dpi=300)
     plt.close()
+
+print(scores)
