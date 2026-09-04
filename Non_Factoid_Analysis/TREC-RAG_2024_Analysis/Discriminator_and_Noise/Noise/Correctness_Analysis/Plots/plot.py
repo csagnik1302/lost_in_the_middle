@@ -6,8 +6,8 @@ output=[]
 
 model_name='mistral-7b-instruct-v0.3-bnb-4bit'
 method='bm25'
-gold_count=3
-app='2B'
+gold_count=7
+app='2A'
 
 with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_output_gold_{gold_count}_{model_name}_app{app}.jsonl','r') as f:
     for i in f:
