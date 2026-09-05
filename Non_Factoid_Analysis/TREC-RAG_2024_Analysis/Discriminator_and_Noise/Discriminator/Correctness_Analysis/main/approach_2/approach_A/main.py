@@ -10,6 +10,8 @@ import re
 import os
 from tqdm import tqdm
 from setproctitle import setproctitle
+import numpy as np
+from math import floor
 
 setproctitle("Discriminator")
 
@@ -41,6 +43,9 @@ with open(r'/home/irlab/sagnik/API_KEY','r') as f:
 model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 method='bm25'
 gold_count=7
+total=60
+count=10
+
 
 
 retr_set_path=rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_gold_fixed_{gold_count}_app2A.jsonl'
@@ -65,8 +70,11 @@ corpus_length=len(length_set)
 with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/{method}/itr_index_app2A.json','r') as f:
     itr=json.load(f)
 
-test_indices=[0,6,13,19,25,32,38,44,51,57]
-# test_indices=[0]
+start=0
+end=total-gold_count
+
+out=np.linspace(start, end, count)
+test_indices=[round(i) for i in out]
 
 
 for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         # Replace test_indices with range(context_length-2) for sliding window across computation
