@@ -82,3 +82,6 @@ for title, scores in plots:
     plt.tight_layout()
     plt.savefig(f"{output_dir}/{title.lower().replace(' ', '_')}_gold_{gold_count}.png", dpi=300)
     plt.close()
+
+
+print(plots)
