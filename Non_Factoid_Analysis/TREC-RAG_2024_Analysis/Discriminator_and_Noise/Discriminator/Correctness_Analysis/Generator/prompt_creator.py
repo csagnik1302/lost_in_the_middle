@@ -30,20 +30,63 @@ def prompt_creator(input_data):
 
 if __name__=='__main__':
 
+    from pathlib import Path
     from gold_injector import gold_injector
 
-    retr_set=[]
+    generator=Path(__file__).resolve().parent
+    correctness_analysis=generator.parent
+    discriminator=correctness_analysis.parent
+    disc_parent=discriminator.parent
+    trec_2024=disc_parent.parent
+    non_factoid=trec_2024.parent
+    ROOT=non_factoid.parent
 
-    PATH=r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Data/generator_input_data_gold_fixed_3.jsonl'
-
-    input_data=gold_injector(PATH,1,0)
-
-    prompt,query=prompt_creator(input_data)
+    gold_count=3
+    app='2A'
 
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_prompt.json','w', encoding='utf-8') as f:
-        json.dump(prompt,f,indent=2)
+    PATH=ROOT/'Non_Factoid_Analysis'/'TREC-RAG_2024_Analysis'/'Discriminator_and_Noise'/'Data'/'bm25'/f'generator_input_data_gold_fixed_{gold_count}_app{app}.jsonl'
 
-    print(prompt)
+
+    # retr_set=[]
+
+    # input_data=gold_injector(PATH,1,0)
+
+    # prompt,query=prompt_creator(input_data)
+
+
+    # with open(ROOT/'Non_Factoid_Analysis'/'TREC-RAG_2024_Analysis'/'Discriminator_and_Noise'/'Discriminator'/'Correctness_Analysis'/'misc'/'sample_prompt_generator.json','w', encoding='utf-8') as f:
+    #     json.dump(prompt,f,indent=2)
     
 
+    # print(prompt)
+
+
+    ############################
+
+    from transformers import AutoTokenizer, AutoConfig
+    from tqdm import tqdm
+
+    model="unsloth/Qwen2.5-7B-Instruct-bnb-4bit"
+
+    tokenizer=AutoTokenizer.from_pretrained(model)
+    
+    # total=0
+    # counter=0
+
+    # for j in range(1,6):
+    #     for i in tqdm(range(58)):
+    #         input_data=gold_injector(PATH, 1, i)
+    #         prompt, query=prompt_creator(input_data)
+
+    #         input_ids=tokenizer.apply_chat_template(prompt, tokenize=True)
+    #         token_length=len(input_ids['input_ids'])
+    #         total+=token_length
+    #         counter+=1
+
+    
+    # print(total/counter)
+    # print(token_length)
+
+    config = AutoConfig.from_pretrained(model)
+    print(config.max_position_embeddings)

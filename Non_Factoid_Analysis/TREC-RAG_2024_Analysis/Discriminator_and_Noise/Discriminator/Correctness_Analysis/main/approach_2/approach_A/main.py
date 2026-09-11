@@ -12,6 +12,7 @@ from tqdm import tqdm
 from setproctitle import setproctitle
 import numpy as np
 from math import floor
+from dotenv import load_dotenv
 
 setproctitle("Discriminator")
 
@@ -36,11 +37,12 @@ from NuggetizeAssignerLLM import NuggetizeAssignerLLM
 from evaluator import all_score, all_strict_score, vital_score, vital_strict_score, weighted_score, weighted_strict_score
 
 #####################
-with open(r'/home/irlab/sagnik/API_KEY','r') as f:
-    hf_token=f.read()
+
+load_dotenv()
+hf_token=os.getenv('HF_TOKEN')
 
 
-model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+model_name="unsloth/Qwen2.5-7B-Instruct-bnb-4bit"
 method='bm25'
 gold_count=7
 total=60
