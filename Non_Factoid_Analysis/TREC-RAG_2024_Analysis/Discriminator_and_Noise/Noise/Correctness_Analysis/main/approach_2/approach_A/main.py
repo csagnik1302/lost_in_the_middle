@@ -41,9 +41,9 @@ with open(r'/home/irlab/sagnik/API_KEY','r') as f:
     hf_token=f.read()
 
 
-model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+model_name="unsloth/Qwen2.5-7B-Instruct-bnb-4bit"
 method='bm25'
-gold_count=7
+gold_count=3
 total=60
 count=10
 

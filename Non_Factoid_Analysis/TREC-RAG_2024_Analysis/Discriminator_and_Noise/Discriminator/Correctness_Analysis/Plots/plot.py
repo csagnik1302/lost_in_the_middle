@@ -4,7 +4,7 @@ import os
 
 output=[]
 
-model_name='mistral-7b-instruct-v0.3-bnb-4bit'
+model_name='Qwen2.5-7B-Instruct-bnb-4bit'
 method='bm25'
 gold_count=7
 app='2A'

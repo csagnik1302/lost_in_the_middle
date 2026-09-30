@@ -44,7 +44,7 @@ hf_token=os.getenv('HF_TOKEN')
 
 model_name="unsloth/Qwen2.5-7B-Instruct-bnb-4bit"
 method='bm25'
-gold_count=7
+gold_count=3
 total=60
 count=10
 
