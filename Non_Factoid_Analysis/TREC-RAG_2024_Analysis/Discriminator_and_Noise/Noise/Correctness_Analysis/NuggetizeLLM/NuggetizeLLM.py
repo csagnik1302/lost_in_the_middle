@@ -5,29 +5,13 @@ from transformers import (
     StoppingCriteriaList
 )
 
-# Only lm-format-enforcer's framework-independent core is imported.
-# Its integrations.transformers module is deliberately NOT used:
-# it imports names that transformers 5 removed and then reports a
-# misleading "transformers is not installed".
-#
-# The small transformers glue it provides is re-implemented below
-# (_build_tokenizer_data / _PrefixFn).
-
-from lmformatenforcer import (
-    JsonSchemaParser,
-    TokenEnforcer,
-    TokenEnforcerTokenizerData
-)
-
 from nuggetizellm_prompt_creator import prompt_creator_nuggetizellm
-
-from pydantic import BaseModel, ConfigDict, Field, ValidationError
-
-from typing import List
 
 from functools import lru_cache
 
+import ast
 import json
+import re
 import torch
 
 
@@ -35,151 +19,439 @@ import torch
 # Config
 # ---------------------------------------------------------------------------
 
-MIN_NUGGETS = 1
-MAX_NUGGETS = 30
-
 MAX_NEW_TOKENS = 1400
 
-# Greedy decoding is deterministic, so one attempt is sufficient.
-MAX_ATTEMPTS = 1
-
 OFFLOAD_CACHE = True
-# Set False if generate() complains about
-# cache_implementation="offloaded" with constrained decoding.
+
+# Minimum number of nuggets we expect from the parser.
+# This is NOT used to delete nuggets.
+MIN_NUGGETS = 1
 
 
 # ---------------------------------------------------------------------------
-# Output type
-#
-# Used BOTH as:
-#   1. the decoding grammar via its JSON schema
-#   2. the semantic validator
-#
-# There is NO:
-#   - character limit
-#   - word limit
-#   - similarity/redundancy filtering
-#
-# The only restrictions are:
-#   - nuggets must be a list
-#   - at least 1 nugget
-#   - at most 30 nuggets
-#   - each nugget must be a string
+# Robust nugget parser
 # ---------------------------------------------------------------------------
 
-class NuggetList(BaseModel):
+def _clean_nugget(text):
+    """
+    Light normalization only.
 
-    model_config = ConfigDict(extra="forbid")
+    IMPORTANT:
+    This does not apply word limits, character limits,
+    similarity filtering, or any other nugget-dropping rule.
+    """
 
-    nuggets: List[str] = Field(
-        ...,
-        min_length=MIN_NUGGETS,
-        max_length=MAX_NUGGETS
-    )
+    if not isinstance(text, str):
+        return None
+
+    text = text.strip()
+
+    # Remove common surrounding whitespace.
+    text = text.strip()
+
+    if not text:
+        return None
+
+    # Remove common bullet/number prefixes.
+    text = re.sub(
+        r'^\s*(?:[-*•]|\d+[.)])\s+',
+        '',
+        text
+    ).strip()
+
+    if not text:
+        return None
+
+    return text
 
 
-SCHEMA = NuggetList.model_json_schema()
+def _extract_quoted_strings(text):
+    """
+    Character-level extraction of quoted strings.
 
+    Supports:
+        "text"
+        'text'
 
-# ---------------------------------------------------------------------------
-# Generation helpers
-# ---------------------------------------------------------------------------
+    Handles:
+        commas inside strings
+        escaped quotes
+        escaped backslashes
 
-_TOK_DATA = {}
-# tokenizer-data build is slow, so do it once per tokenizer
+    Example:
 
+        '"nugget 1","nugget 2","nugget, with comma"'
 
-def _build_tokenizer_data(tokenizer):
+    becomes:
 
-    vocab_size = len(tokenizer)
+        [
+            'nugget 1',
+            'nugget 2',
+            'nugget, with comma'
+        ]
+    """
 
-    token_0 = tokenizer.encode("0")[-1]
+    nuggets = []
 
-    special = set(tokenizer.all_special_ids)
+    i = 0
+    n = len(text)
 
-    regular_tokens = []
+    while i < n:
 
-    for idx in range(vocab_size):
-
-        if idx in special:
+        # Look for either quote type.
+        if text[i] not in ('"', "'"):
+            i += 1
             continue
 
-        # Prepend token "0" and drop its first character
-        # to see whether this token starts a new word
-        # (leading space).
+        quote = text[i]
+        i += 1
 
-        after_0 = tokenizer.decode([token_0, idx])[1:]
+        chars = []
 
-        regular = tokenizer.decode([idx])
+        while i < n:
 
-        regular_tokens.append(
-            (
-                idx,
-                after_0,
-                len(after_0) > len(regular)
-            )
-        )
+            ch = text[i]
 
-    decode_fn = lambda toks: tokenizer.decode(toks).rstrip("\ufffd")
+            # Closing quote
+            if ch == quote:
+                i += 1
+                break
+
+            # Escape sequence
+            if ch == '\\' and i + 1 < n:
+
+                next_ch = text[i + 1]
+
+                # Preserve common escaped characters correctly.
+                escape_map = {
+                    'n': '\n',
+                    'r': '\r',
+                    't': '\t',
+                    '\\': '\\',
+                    '"': '"',
+                    "'": "'"
+                }
+
+                if next_ch in escape_map:
+                    chars.append(escape_map[next_ch])
+                else:
+                    # Unknown escape:
+                    # retain the escaped character rather than dropping it.
+                    chars.append(next_ch)
+
+                i += 2
+                continue
+
+            chars.append(ch)
+            i += 1
+
+        value = ''.join(chars)
+
+        value = _clean_nugget(value)
+
+        if value:
+            nuggets.append(value)
+
+    return nuggets
+
+
+def _extract_nugget_array(text):
+    """
+    Try to isolate the contents of:
+
+        "nuggets": [...]
+
+    even when the surrounding JSON is malformed.
+    """
+
+    # Locate the nuggets field.
+    match = re.search(
+        r'["\']?nuggets["\']?\s*:',
+        text,
+        flags=re.IGNORECASE
+    )
+
+    if not match:
+        return None
+
+    start = match.end()
+
+    # Find the first '[' after "nuggets":
+    array_start = text.find('[', start)
+
+    if array_start == -1:
+        return None
+
+    # Find matching closing bracket while respecting quotes.
+    depth = 0
+    quote = None
+    escaped = False
+
+    for i in range(array_start, len(text)):
+
+        ch = text[i]
+
+        if quote is not None:
+
+            if escaped:
+                escaped = False
+                continue
+
+            if ch == '\\':
+                escaped = True
+                continue
+
+            if ch == quote:
+                quote = None
+
+            continue
+
+        if ch in ('"', "'"):
+            quote = ch
+            continue
+
+        if ch == '[':
+            depth += 1
+
+        elif ch == ']':
+            depth -= 1
+
+            if depth == 0:
+                return text[
+                    array_start + 1:i
+                ]
+
+    # Unterminated array:
+    # return everything after '[' rather than losing the nuggets.
+    return text[array_start + 1:]
+
+
+def _parse_with_json(text):
+    """
+    First-choice parser for proper JSON.
+    """
 
     try:
 
-        return TokenEnforcerTokenizerData(
-            regular_tokens,
-            decode_fn,
-            tokenizer.eos_token_id,
-            False,
-            vocab_size
+        obj = json.loads(text)
+
+    except Exception:
+
+        return None
+
+    if isinstance(obj, dict):
+
+        nuggets = obj.get("nuggets")
+
+        if isinstance(nuggets, list):
+
+            return [
+                x for x in nuggets
+                if isinstance(x, str)
+            ]
+
+    elif isinstance(obj, list):
+
+        return [
+            x for x in obj
+            if isinstance(x, str)
+        ]
+
+    return None
+
+
+def _parse_with_literal_eval(text):
+    """
+    Handles Python-style structures, including single quotes.
+
+    Example:
+
+        {'nuggets': ['A', 'B']}
+
+    """
+
+    try:
+
+        obj = ast.literal_eval(text)
+
+    except Exception:
+
+        return None
+
+    if isinstance(obj, dict):
+
+        nuggets = obj.get("nuggets")
+
+        if isinstance(nuggets, list):
+
+            return [
+                x for x in nuggets
+                if isinstance(x, str)
+            ]
+
+    elif isinstance(obj, list):
+
+        return [
+            x for x in obj
+            if isinstance(x, str)
+        ]
+
+    # Important case:
+    #
+    # '"nugget 1","nugget 2"'
+    #
+    # literal_eval returns the inner sequence as a string.
+    if isinstance(obj, str):
+
+        return _extract_quoted_strings(obj)
+
+    return None
+
+
+def _parse_nuggets(output):
+    """
+    Main tolerant nugget parser.
+
+    The parser deliberately tries increasingly permissive
+    strategies instead of rejecting the entire output.
+
+    Returns:
+        list[str]
+    """
+
+    if output is None:
+        return []
+
+    if not isinstance(output, str):
+        output = str(output)
+
+    text = output.strip()
+
+    if not text:
+        return []
+
+    # ---------------------------------------------------------------
+    # 1. Proper JSON
+    # ---------------------------------------------------------------
+
+    nuggets = _parse_with_json(text)
+
+    if nuggets is not None:
+
+        cleaned = [
+            _clean_nugget(x)
+            for x in nuggets
+        ]
+
+        return [
+            x for x in cleaned
+            if x is not None
+        ]
+
+    # ---------------------------------------------------------------
+    # 2. Python-style representation
+    #
+    # Handles single quotes.
+    # ---------------------------------------------------------------
+
+    nuggets = _parse_with_literal_eval(text)
+
+    if nuggets is not None:
+
+        cleaned = [
+            _clean_nugget(x)
+            for x in nuggets
+        ]
+
+        return [
+            x for x in cleaned
+            if x is not None
+        ]
+
+    # ---------------------------------------------------------------
+    # 3. Recover the "nuggets" array from malformed JSON
+    # ---------------------------------------------------------------
+
+    array_content = _extract_nugget_array(text)
+
+    if array_content is not None:
+
+        nuggets = _extract_quoted_strings(
+            array_content
         )
 
-    except TypeError:
+        if nuggets:
+            return nuggets
 
-        # Older lm-format-enforcer signature without
-        # use_bitmask / vocab_size
+    # ---------------------------------------------------------------
+    # 4. Direct quoted-string sequence
+    #
+    # Handles:
+    #
+    # "A","B","C"
+    #
+    # and:
+    #
+    # '"A","B","C"'
+    # ---------------------------------------------------------------
 
-        return TokenEnforcerTokenizerData(
-            regular_tokens,
-            decode_fn,
-            tokenizer.eos_token_id
-        )
+    nuggets = _extract_quoted_strings(text)
 
+    if nuggets:
 
-def _tokenizer_data(tokenizer):
+        # Avoid treating a single outer wrapper containing
+        # the entire sequence as the only nugget.
+        #
+        # Example:
+        #
+        # '"A","B","C"'
+        #
+        # The scanner gives:
+        #
+        # ['A","B","C']
+        #
+        # In this situation, recursively parse the content.
+        if len(nuggets) == 1:
 
-    key = id(tokenizer)
+            inner = nuggets[0]
 
-    if key not in _TOK_DATA:
-        _TOK_DATA[key] = _build_tokenizer_data(tokenizer)
+            inner_nuggets = _extract_quoted_strings(
+                inner
+            )
 
-    return _TOK_DATA[key]
+            if len(inner_nuggets) > 1:
+                return inner_nuggets
+
+        return nuggets
+
+    # ---------------------------------------------------------------
+    # 5. Last-resort line-based recovery
+    #
+    # We do NOT discard the output simply because it wasn't
+    # valid JSON.
+    # ---------------------------------------------------------------
+
+    lines = text.splitlines()
+
+    recovered = []
+
+    for line in lines:
+
+        line = line.strip()
+
+        if not line:
+            continue
+
+        cleaned = _clean_nugget(line)
+
+        if cleaned:
+            recovered.append(cleaned)
+
+    return recovered
 
 
 # ---------------------------------------------------------------------------
-# prefix_allowed_tokens_fn for generate()
-# ---------------------------------------------------------------------------
-
-class _PrefixFn:
-
-    def __init__(self, enforcer):
-
-        self.enforcer = enforcer
-
-    def __call__(self, batch_id, sent):
-
-        allowed = self.enforcer.get_allowed_tokens(
-            sent.tolist()
-        )
-
-        return getattr(
-            allowed,
-            "allowed_tokens",
-            allowed
-        )
-
-
-# ---------------------------------------------------------------------------
-# Stop generation as soon as the output is a complete,
-# parseable JSON value.
+# Generation
 # ---------------------------------------------------------------------------
 
 class JsonDoneCriteria(StoppingCriteria):
@@ -191,31 +463,15 @@ class JsonDoneCriteria(StoppingCriteria):
 
     def __call__(self, input_ids, scores, **kwargs):
 
-        done = False
-
-        last = self.tok.convert_ids_to_tokens(
-            int(input_ids[0, -1])
-        )
-
-        if last and "}" in last:
-
-            text = self.tok.decode(
-                input_ids[0, self.prompt_len:],
-                skip_special_tokens=True
-            )
-
-            try:
-
-                json.loads(text)
-
-                done = True
-
-            except json.JSONDecodeError:
-
-                pass
+        # We no longer require valid JSON to stop.
+        #
+        # Stop when the model reaches EOS.
+        #
+        # Returning False here allows normal max_new_tokens
+        # generation to proceed.
 
         return torch.tensor(
-            [done],
+            [False],
             device=input_ids.device
         )
 
@@ -231,39 +487,17 @@ def _generate(
     input_size
 ):
 
-    # Fresh parser + prefix function for each generation.
-    # The enforcer keeps per-generation state.
-
-    parser = JsonSchemaParser(SCHEMA)
-
-    prefix_fn = _PrefixFn(
-        TokenEnforcer(
-            _tokenizer_data(tokenizer),
-            parser
-        )
-    )
-
     kwargs = dict(
 
         max_new_tokens=MAX_NEW_TOKENS,
 
-        prefix_allowed_tokens_fn=prefix_fn,
-
-        stopping_criteria=StoppingCriteriaList(
-            [
-                JsonDoneCriteria(
-                    tokenizer,
-                    input_size
-                )
-            ]
-        ),
-
-        pad_token_id=tokenizer.eos_token_id,
-
-        # ---------------------------------------------------------------
+        # -----------------------------------------------------------
         # GREEDY DECODING
-        # ---------------------------------------------------------------
-        do_sample=False
+        # -----------------------------------------------------------
+
+        do_sample=False,
+
+        pad_token_id=tokenizer.eos_token_id
     )
 
     if OFFLOAD_CACHE:
@@ -283,47 +517,6 @@ def _generate(
 
 
 # ---------------------------------------------------------------------------
-# Validation
-# ---------------------------------------------------------------------------
-
-def _validate(output):
-
-    """
-    Returns:
-
-        nuggets
-        error message
-        number of raw items the model produced
-    """
-
-    try:
-
-        raw_n = len(
-            json.loads(output)["nuggets"]
-        )
-
-    except Exception:
-
-        raw_n = None
-
-    try:
-
-        return (
-            NuggetList.model_validate_json(output).nuggets,
-            None,
-            raw_n
-        )
-
-    except ValidationError as e:
-
-        return (
-            None,
-            str(e),
-            raw_n
-        )
-
-
-# ---------------------------------------------------------------------------
 # Load retrieval set
 # ---------------------------------------------------------------------------
 
@@ -339,7 +532,7 @@ def load_retr_set(path):
 
 
 # ---------------------------------------------------------------------------
-# Main entry point
+# Main nugget generation
 # ---------------------------------------------------------------------------
 
 def NuggetizeLLM(
@@ -365,9 +558,6 @@ def NuggetizeLLM(
         add_generation_prompt=True
     )
 
-    # The chat template already contains <s>,
-    # so don't add another BOS token.
-
     inputs = tokenizer(
         input_processed,
         return_tensors="pt",
@@ -376,36 +566,24 @@ def NuggetizeLLM(
 
     input_size = inputs["input_ids"].shape[1]
 
-    nuggets = None
-    err = None
-    raw_n = None
+    # ---------------------------------------------------------------
+    # Generate ONCE, greedily.
+    # ---------------------------------------------------------------
 
-    attempts = 0
+    raw_output = _generate(
+        model,
+        tokenizer,
+        inputs,
+        input_size
+    )
 
-    for attempt in range(MAX_ATTEMPTS):
+    # ---------------------------------------------------------------
+    # Recover nuggets without Pydantic.
+    # ---------------------------------------------------------------
 
-        attempts = attempt + 1
-
-        # Always greedy.
-        output = _generate(
-            model,
-            tokenizer,
-            inputs,
-            input_size
-        )
-
-        nuggets, err, raw_n = _validate(
-            output
-        )
-
-        if nuggets is not None:
-
-            break
-
-        print(
-            f"[index {corpus_lookup_index}] "
-            f"attempt {attempts} failed validation: {err}"
-        )
+    nuggets = _parse_nuggets(
+        raw_output
+    )
 
     nugget_dict = {
 
@@ -414,9 +592,14 @@ def NuggetizeLLM(
         "NuggetizeLLM_output": nuggets,
 
         "meta": {
-            "attempts": attempts,
-            "raw_nuggets": raw_n,
-            "error": err
+
+            "raw_output": raw_output,
+
+            "raw_nuggets_recovered": len(nuggets),
+
+            "parser": "tolerant_multi_stage",
+
+            "error": None
         }
     }
 
@@ -468,7 +651,29 @@ if __name__ == "__main__":
         retr_set_path
     )
 
-    print(nugget_dict)
+    print("\n================ RAW OUTPUT ================\n")
+
+    print(
+        nugget_dict["meta"]["raw_output"]
+    )
+
+    print("\n================ PARSED NUGGETS ================\n")
+
+    for i, nugget in enumerate(
+        nugget_dict["NuggetizeLLM_output"],
+        start=1
+    ):
+
+        print(
+            f"{i}. {nugget}"
+        )
+
+    print(
+        "\nRecovered nuggets:",
+        len(
+            nugget_dict["NuggetizeLLM_output"]
+        )
+    )
 
     output_path = (
         r"/home/irlab/sagnik/"
@@ -489,5 +694,6 @@ if __name__ == "__main__":
         json.dump(
             nugget_dict,
             f,
-            indent=2
+            indent=2,
+            ensure_ascii=False
         )
