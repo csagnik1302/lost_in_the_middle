@@ -37,8 +37,10 @@ from NuggetizeAssignerLLM import NuggetizeAssignerLLM
 from evaluator import all_score, all_strict_score, vital_score, vital_strict_score, weighted_score, weighted_strict_score
 
 #####################
-with open(r'/home/irlab/sagnik/API_KEY','r') as f:
-    hf_token=f.read()
+from dotenv import load_dotenv
+
+load_dotenv()
+hf_token=os.getenv('HF_TOKEN')
 
 
 model_name="unsloth/Qwen2.5-7B-Instruct-bnb-4bit"

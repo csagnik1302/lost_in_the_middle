@@ -49,18 +49,20 @@ def NuggetizeScoreLLM(model, tokenizer, nugget_dict):
 
 if __name__=='__main__':
 
-    with open(r'/home/irlab/sagnik/API_KEY','r') as f:
-        hf_token=f.read()
+    from dotenv import load_dotenv
+    import os
 
+    load_dotenv()
+    hf_token=os.getenv('HF_TOKEN')
 
-    model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+    model_name="unsloth/Qwen2.5-7B-Instruct-bnb-4bit"
 
 
     model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation="flash_attention_2")
     tokenizer=AutoTokenizer.from_pretrained(model_name, fix_mistral_regex=True, token=hf_token)
 
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizellm.json','r') as f:
+    with open(r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/bm25/sample_output_nuggetizellm.json','r') as f:
         nugget_dict=json.load(f)
     
     score_output_list=NuggetizeScoreLLM(model,tokenizer,nugget_dict)
@@ -69,7 +71,7 @@ if __name__=='__main__':
     
     export_output={'query':query,'nugget_list':nugget_list,'NuggetizeLLM_output':score_output_list}
 
-    with open(r'/home/irlab/sagnik/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/sample_output_nuggetizescorellm.json','w') as f:
+    with open(r'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Discriminator/Correctness_Analysis/misc/bm25/sample_output_nuggetizescorellm.json','w') as f:
         json.dump(export_output,f,indent=2)
 
     print(score_output_list)

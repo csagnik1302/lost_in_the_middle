@@ -210,6 +210,7 @@ def NuggetizeLLM(corpus_lookup_index, model, tokenizer, retr_set_path):
     dropped = (raw_n - len(nuggets)) if (nuggets is not None and raw_n is not None) else None
 
     nugget_dict = {
+        'query': query,
         'NuggetizeLLM_output': nuggets,      # list[str], or None if every attempt failed
         'meta': {'attempts': attempts, 'dropped_by_rules': dropped, 'error': err},
     }
