@@ -30,15 +30,22 @@ from NuggetizeAssignerLLM import NuggetizeAssignerLLM
 from evaluator import all_score, all_strict_score, vital_score, vital_strict_score, weighted_score, weighted_strict_score
 
 #####################
-with open(r'/home/irlab/sagnik/API_KEY','r') as f:
-    hf_token=f.read()
+import tomllib
 
+#####################
+from dotenv import load_dotenv
 
-model_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+load_dotenv()
+hf_token=os.getenv('HF_TOKEN')
+
+with open('config.toml', 'rb') as f:
+    config=tomllib.load(f)
+
+model_name=config['model_setting']['model']
 method='bm25'
-gold_count=7
-total=60
-count=10
+gold_count=config['misc_setting']['gold_count']
+total=config['misc_setting']['total']
+count=config['misc_setting']['gold_pos_count']
 
 
 retr_set_path=rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_gold_fixed_{gold_count}_app2A.jsonl'

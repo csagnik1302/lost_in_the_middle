@@ -35,6 +35,7 @@ from NuggetizeLLM import NuggetizeLLM
 from NuggetizeScoreLLM import NuggetizeScoreLLM
 from NuggetizeAssignerLLM import NuggetizeAssignerLLM
 from evaluator import all_score, all_strict_score, vital_score, vital_strict_score, weighted_score, weighted_strict_score
+import tomllib
 
 #####################
 from dotenv import load_dotenv
@@ -42,12 +43,14 @@ from dotenv import load_dotenv
 load_dotenv()
 hf_token=os.getenv('HF_TOKEN')
 
+with open('config.toml', 'rb') as f:
+    config=tomllib.load(f)
 
-model_name="unsloth/Qwen2.5-7B-Instruct-bnb-4bit"
+model_name=config['model_setting']['model']
 method='bm25'
-gold_count=3
-total=60
-count=10
+gold_count=config['misc_setting']['gold_count']
+total=config['misc_setting']['total']
+count=config['misc_setting']['gold_pos_count']
 
 
 retr_set_path=rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_gold_fixed_{gold_count}_app2A.jsonl'
