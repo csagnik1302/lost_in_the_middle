@@ -7,4 +7,4 @@ total=60
 gold_pos_count=10
 
 [plot_setting]
-model='Qwen2.5-7B-Instruct-bnb-4bit'
+model='mistral-7b-instruct-v0.3-bnb-4bit'
