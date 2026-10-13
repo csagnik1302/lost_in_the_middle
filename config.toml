@@ -1,5 +1,5 @@
 [model_setting]
-model='unsloth/mistral-7b-instruct-v0.3-bnb-4bit'
+model='unsloth/Qwen2.5-14B-Instruct-bnb-4bit'
 
 [misc_setting]
 gold_count=3
@@ -7,4 +7,4 @@ total=60
 gold_pos_count=10
 
 [plot_setting]
-model='mistral-7b-instruct-v0.3-bnb-4bit'
+model='Qwen3-8B-unsloth-bnb-4bit'
