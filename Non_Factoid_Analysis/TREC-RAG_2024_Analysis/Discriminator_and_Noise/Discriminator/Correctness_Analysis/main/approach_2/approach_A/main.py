@@ -46,7 +46,8 @@ hf_token=os.getenv('HF_TOKEN')
 with open('config.toml', 'rb') as f:
     config=tomllib.load(f)
 
-model_name=config['model_setting']['model']
+autonugg_model_name=config['model_setting']['model']
+model_name=config['model_setting']['generator_model']
 method='bm25'
 gold_count=config['misc_setting']['gold_count']
 total=config['misc_setting']['total']
@@ -54,7 +55,9 @@ count=config['misc_setting']['gold_pos_count']
 
 retr_set_path=rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Data/{method}/generator_input_data_gold_fixed_{gold_count}_app2A.jsonl'
 
+autonugg_model=AutoModelForCausalLM.from_pretrained(autonugg_model_name,token=hf_token,attn_implementation='flash_attention_2')
 model=AutoModelForCausalLM.from_pretrained(model_name,token=hf_token,attn_implementation='flash_attention_2')
+autonugg_tokenizer=AutoTokenizer.from_pretrained(autonugg_model_name,token=hf_token)
 tokenizer=AutoTokenizer.from_pretrained(model_name,token=hf_token)
 
 length_set=[]
@@ -96,13 +99,13 @@ for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         #
             output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
             output1=output_text
 
-            nugget_dict=NuggetizeLLM(j,model,tokenizer,retr_set_path)
+            nugget_dict=NuggetizeLLM(j,autonugg_model,autonugg_tokenizer,retr_set_path)
             output2=nugget_dict['NuggetizeLLM_output']
 
-            score_list, nugget_list, query1=NuggetizeScoreLLM(model,tokenizer,nugget_dict)
+            score_list, nugget_list, query1=NuggetizeScoreLLM(autonugg_model,autonugg_tokenizer,nugget_dict)
             output3=score_list
 
-            assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(model,tokenizer,nugget_dict,output_text)
+            assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(autonugg_model,autonugg_tokenizer,nugget_dict,output_text)
             output4=assigner_list
 
         

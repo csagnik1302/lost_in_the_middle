@@ -6,7 +6,8 @@ import tomllib
 with open('config.toml', 'rb') as f:
     config=tomllib.load(f)
 
-model_name=config['plot_setting']['model']
+# model_name=config['model_setting']['generator_model']
+model_name='mistral-7b-instruct-v0.3-bnb-4bit'
 method='bm25'
 gold_count=config['misc_setting']['gold_count']
 app='2A'

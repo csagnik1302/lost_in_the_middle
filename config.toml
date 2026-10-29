@@ -1,5 +1,6 @@
 [model_setting]
 model='unsloth/Qwen2.5-14B-Instruct-bnb-4bit'
+generator_model='unsloth/mistral-7b-instruct-v0.3-bnb-4bit'
 
 [misc_setting]
 gold_count=3
