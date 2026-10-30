@@ -84,83 +84,84 @@ end=total-gold_count
 out=np.linspace(start, end, count)
 test_indices=[round(i) for i in out]
 
+if itr['completion']!='true':
+    for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         # Replace test_indices with range(context_length-2) for sliding window across computation
+        for j in tqdm(range(corpus_length),desc='Corpus Index',leave=False):
 
-for i in tqdm(test_indices,desc='First Gold Doc Position',leave=True):         # Replace test_indices with range(context_length-2) for sliding window across computation
-    for j in tqdm(range(corpus_length),desc='Corpus Index',leave=False):
+            if i<itr['i']:
+                continue
 
-        if i<itr['i']:
-            continue
+            if i==itr['i'] and j<=itr['j']:
+                continue
 
-        if i==itr['i'] and j<=itr['j']:
-            continue
-
-        interrupted=False
-        
-        try:
-            output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
-            output1=output_text
-
-            nugget_dict=NuggetizeLLM(j,autonugg_model,autonugg_tokenizer,retr_set_path)
-            output2=nugget_dict['NuggetizeLLM_output']
-
-            score_list, nugget_list, query1=NuggetizeScoreLLM(autonugg_model,autonugg_tokenizer,nugget_dict)
-            output3=score_list
-
-            assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(autonugg_model,autonugg_tokenizer,nugget_dict,output_text)
-            output4=assigner_list
-
-        
-            ######## Eval
-
-            all_score_out=all_score(assigner_list)
-            all_strict_score_out=all_strict_score(assigner_list)
-
-            vital_score_out=vital_score(assigner_list,score_list)
-            vital_strict_score_out=vital_strict_score(assigner_list,score_list)
-
-            weighted_score_out=weighted_score(assigner_list,score_list)
-            weighted_strict_score_out=weighted_strict_score(assigner_list,score_list)
-
-            output5={'all_score':all_score_out,'all_strict_score':all_strict_score_out,'vital_score':vital_score_out,'vital_strict_score':vital_strict_score_out,'weighted_score':weighted_score_out,'weighted_strict_score':weighted_strict_score_out}
-
-            final_output={'model':model_name,'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
-
-
-            with open(fr"/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_output_gold_{gold_count}_{model_name[model_name.index('/')+1:]}_app2A.jsonl", "a") as f:
-                f.write(json.dumps(final_output) + "\n")
-                f.flush()
-                os.fsync(f.fileno())
-
-        except KeyboardInterrupt:
+            interrupted=False
             
-            interrupted=True
-            raise
+            try:
+                output_text, query=llm_output_generator(i,j,model,tokenizer,retr_set_path)
+                output1=output_text
+
+                nugget_dict=NuggetizeLLM(j,autonugg_model,autonugg_tokenizer,retr_set_path)
+                output2=nugget_dict['NuggetizeLLM_output']
+
+                score_list, nugget_list, query1=NuggetizeScoreLLM(autonugg_model,autonugg_tokenizer,nugget_dict)
+                output3=score_list
+
+                assigner_list, nugget_list1, query2=NuggetizeAssignerLLM(autonugg_model,autonugg_tokenizer,nugget_dict,output_text)
+                output4=assigner_list
+
             
-        except Exception as e:
+                ######## Eval
 
-            error_data={'first_gold_doc_pos':i,'corpus_position':j,'error':str(e)}
+                all_score_out=all_score(assigner_list)
+                all_strict_score_out=all_strict_score(assigner_list)
 
-            with open(fr"/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_error_log_gold_{gold_count}_{model_name[model_name.index('/')+1:]}_app2A.jsonl", "a") as f:
-                f.write(json.dumps(error_data) + "\n")
-                f.flush()
-                os.fsync(f.fileno())
+                vital_score_out=vital_score(assigner_list,score_list)
+                vital_strict_score_out=vital_strict_score(assigner_list,score_list)
 
-        finally:
+                weighted_score_out=weighted_score(assigner_list,score_list)
+                weighted_strict_score_out=weighted_strict_score(assigner_list,score_list)
 
-            if interrupted==False:
-            
-                itr['i']=i
-                itr['j']=j
+                output5={'all_score':all_score_out,'all_strict_score':all_strict_score_out,'vital_score':vital_score_out,'vital_strict_score':vital_strict_score_out,'weighted_score':weighted_score_out,'weighted_strict_score':weighted_strict_score_out}
 
-
-                if j==corpus_length-1 and i==test_indices[-1]:
-
-                    itr['i']=-1
-                    itr['j']=-1
+                final_output={'model':model_name,'first_gold_doc_pos':i,'corpus_position':j,'query':query,'generator_output':output1,'nuggetizellm_output':output2,'nuggetizescorellm_output':output3,'nuggetizeassignerllm_output':output4,'scores':output5}
 
 
-                with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/itr_index_app2A.json','w') as f:
-                    json.dump(itr,f)
+                with open(fr"/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_output_gold_{gold_count}_{model_name[model_name.index('/')+1:]}_app2A.jsonl", "a") as f:
+                    f.write(json.dumps(final_output) + "\n")
+                    f.flush()
+                    os.fsync(f.fileno())
+
+            except KeyboardInterrupt:
+                
+                interrupted=True
+                raise
+                
+            except Exception as e:
+
+                error_data={'first_gold_doc_pos':i,'corpus_position':j,'error':str(e)}
+
+                with open(fr"/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/pipeline_error_log_gold_{gold_count}_{model_name[model_name.index('/')+1:]}_app2A.jsonl", "a") as f:
+                    f.write(json.dumps(error_data) + "\n")
+                    f.flush()
+                    os.fsync(f.fileno())
+
+            finally:
+
+                if interrupted==False:
+                
+                    itr['i']=i
+                    itr['j']=j
+
+
+                    if j==corpus_length-1 and i==test_indices[-1]:
+
+                        itr['i']=-1
+                        itr['j']=-1
+                        itr['completion']='true'
+
+
+                    with open(rf'/home/irlab/sagnik/Non_Factoid_Analysis/TREC-RAG_2024_Analysis/Discriminator_and_Noise/Noise/Correctness_Analysis/misc/{method}/itr_index_app2A.json','w') as f:
+                        json.dump(itr,f)
 
 
 
