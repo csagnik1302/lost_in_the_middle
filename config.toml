@@ -3,7 +3,7 @@ model='unsloth/Qwen2.5-14B-Instruct-bnb-4bit'
 generator_model='unsloth/Qwen2.5-7B-Instruct-bnb-4bit'
 
 [misc_setting]
-gold_count=3
+gold_count=7
 total=60
 gold_pos_count=10
 
